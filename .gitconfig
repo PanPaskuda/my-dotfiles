@@ -3,5 +3,6 @@
     name = JC
 [alias]
     s = status
-    l = log --oneline -15
+    l = log --oneline -10
     b = branch --all --verbose --verbose
+    f = fetch
