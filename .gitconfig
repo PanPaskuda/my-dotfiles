@@ -1,0 +1,7 @@
+[user]
+    email= none@none.com
+    name = JC
+[alias]
+    s = status
+    l = log --oneline -15
+    b = branch --all --verbose --verbose
