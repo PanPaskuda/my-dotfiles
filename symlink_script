@@ -3,10 +3,10 @@
 #find real script directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 #make a soft links of yours dotfile
-cd $DIR
-echo $DIR
-ls
+echo 
+echo creating symbolic links from $DIR to system dotfiles in ~/
 
-ln -s $DIR/.gitconfig  ~/.gitconfig
-ln -s $DIR/.vimrc  ~/.vimrc
+
+ln --symbolic --interactive $DIR/.gitconfig  ~/.gitconfig
+ln --symbolic --interactive $DIR/.vimrc  ~/.vimrc
 
