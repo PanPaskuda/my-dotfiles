@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#find real script directory
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+#make a soft links of yours dotfile
+cd $DIR
+echo $DIR
+ls
+
+ln -s $DIR/.gitconfig  ~/.gitconfig
+ln -s $DIR/.vimrc  ~/.vimrc
+
