@@ -6,3 +6,4 @@
     l = log --oneline -10
     b = branch --all --verbose --verbose
     f = fetch
+    p = push dotfiles HEAD:master
