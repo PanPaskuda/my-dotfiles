@@ -1,12 +1,63 @@
 #!/bin/bash
 
 #find real script directory
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-#make a soft links of yours dotfile
-echo 
-echo installing all stuff
+#DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-sudo apt install vim
+echo clear
+echo
+echo _________________________
+echo installing all stuff:
+echo git: \(probably already installed\)
 sudo apt install git
+echo gitk:
 sudo apt install gitk
+echo python3:
+sudo apt install python3
+echo vim:
+sudo apt install vim
 
+echo _________________________
+echo install vundle:
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+echo _________________________
+echo open vim, update all plugins and quit vim:
+sleep 1
+vim -c BundleUpdate -c q -c q
+
+echo _________________________
+echo install cmake
+sudo apt install build-essential cmake python3-dev
+echo install clang
+cd ~/.vim/bundle/YouCompleteMe
+python3 install.py --clang-completer
+
+echo _________________________
+echo install Excuberant tags:
+sudo apt install exuberant-ctags
+
+echo _________________________
+echo install Bear
+git clone https://github.com/rizsotto/Bear.git ~/Bear_Source_Tmp/
+cd ~/Bear_Source_Tmp
+cmake ~/Bear_Source_Tmp
+make all
+sudo make install
+make check
+sudo make package
+
+echo _________________________
+echo create backup and swap directory for vim
+mkdir -p ~/.vim/backup
+mkdir -p ~/.vim/swap
+
+echo
+echo
+echo ___________________________________________
+echo "===                 DONE                ==="
+echo
+echo Your Vim is already installed and configured
+echo
+
+echo TODO:
+echo - install font for vim
