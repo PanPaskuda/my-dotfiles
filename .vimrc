@@ -1,42 +1,13 @@
 
-
-
 " This line should not be removed as it ensures that various options are
 " properly set to work with the Vim-related packages available in Debian.
 runtime! debian.vim
 
 "=========================================================
-"HOW TO RUN ME AT FIRST TIME (TODO make a semi install script)
+"    TODO
 "=========================================================
-"HELP:
-"1.install vundle:
-"   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-"   :VundleInstall
-"2 prepare directory
-"   create dir: ~/.vim/backup
-"   create dir: ~/.vim/swap
-"3 install CSCOPE:
-"//TODO
-"4 install YCM:
-"Linux:
-" + install YCM with clang:
-"       sudo apt install build-essential cmake python3-dev
-"       cd ~/.vim/bundle/YouCompleteMe
-"       python3 install.py --clang-completer
-" + install Excuberant tags:
-"       sudo apt install exuberant-ctags
-" + install Bear: https://github.com/rizsotto/Bear:
-"       git clone https://github.com/rizsotto/Bear.git ~/Bear_Source_Tmp/
-"       cmake ~/Bear_Source_Tmp
-"       make all
-"       sudo make install
-"       make check
-"       sudo make package
-" + create tags:
-"       Bear make <target>
-"Windows:
-"   
-"
+"  +  terminal view
+"  +  preproc view
 
 "=========================================================
 "=                        VUNDLE                         =
@@ -337,6 +308,8 @@ function! SplitToggle()
  endif
 endfunction
 
+
+" call SplitToggle() to save settings
 "=========================================================
 "=                  TAB/SPACES TOGGLE                    =
 "=========================================================
@@ -374,7 +347,6 @@ function! TabsSpacesToggle()
     endif
 endfunction
 
-call SplitToggle()
 
 "=========================================================
 "=                     DRAG VISUALS                      =
@@ -403,21 +375,21 @@ let g:EasyGrepFileAssociationsInExplorer=1 "allowed to set group of
 "=========================================================
 "=                      COLOR SCHEME                     =
 "=========================================================
-colorscheme slate
-
-highlight CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-highlight NERDTreeDir ctermfg=LightBlue ctermbg=Black
+set background=dark
+colorscheme solarized
 highlight ExtraWhitespace ctermfg=white ctermbg=red guifg=white guibg=red
+
+highlight NERDTreeDir guibg=#002b36 guifg=#268bd2
+
 "tabs and trailing spaces (ignore ^\t ):
 "match ExtraWhitespace /[^\t^][\t]\|\s\+$\| \+\ze\t/
 "tabs and trailing spaces:
 match ExtraWhitespace /[\t]\|\s\+$\| \+\ze\t/
 
-set guifont=Consolas "set fonts for gVim: 0Oo, |1lIiL
+"NOTE: weird bahaviour after settings a guifont: resize of the gvim window
+"set guifont=Consolas "set fonts for gVim: 0Oo, |1lIiL
 
 
-set background=dark
-colorscheme solarized
 
 
 
@@ -500,7 +472,7 @@ endfunction
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_working_path_mode = 'rw' "begin finding a root from the current working directory
-let g:ctrlp_max_height = 10 " Set the maximum height of the match window:
+let g:ctrlp_max_height = 20 " Set the maximum height of the match window:
 let g:ctrlp_regexp = 0 "Set this to 1 to set regexp search as the default: toggle: <c-d>
 let g:ctrlp_by_filename = 0 "set searching by filename (as opposed to full path) toggle <c-r>
 let g:ctrlp_mruf_relative = 1 "show only MRU files in the current working directory
