@@ -1,7 +1,9 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 echo
 echo update repo
 
+cd $DIR
 git fetch
 git rebase
