@@ -91,6 +91,10 @@ set autoread "automatically read changed file again.
 set cmdheight=2 " Height of the command bar
 set updatetime=100 "100ms time of upadating i.e. gitgutter signs
 set nrformats-=octal
+set guioptions=aegimrLtTc "default + 'c' for block gui popups
+set cursorline "Highlight the screen line of the cursor
+"Use console dialogs instead of popup dialogs
+
 " set path+=** TODO check how it works
 
 let mapleader=","
@@ -115,6 +119,31 @@ else
     set backupdir=~/.vim/backup
 "TODO how to swoitch off swap files    set directory=~/.vim/swap
 endif
+
+
+"===========================================================
+"=                     CLEAN_VIEW                          =
+"===========================================================
+let g:clean_view_on = 0
+
+function! CleanViewToggle()
+    echo "toggle CleanView"
+    if bufwinnr(1)
+        if(g:clean_view_on ==0)
+            set spell
+            IndentGuidesEnable
+            set list listchars=tab:>-,trail:~,extends:>,precedes:<,nbsp:o,space:·
+            set cursorline
+            let g:clean_view_on =1
+        else
+            set nospell
+            IndentGuidesDisable
+            set list listchars=tab:>-
+            set nocursorline
+            let g:clean_view_on =0
+        endif
+    endif
+endfunction
 
 
 "===========================================================
@@ -249,6 +278,9 @@ let g:gitgutter_max_signs = 500  "500 is a default value
 "=                    INDENT_GUIDES                      =
 "=========================================================
 let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_space_guides = 1
+let g:indent_guides_tab_guides = 1
 "nmap <silent><unique> <Leader>ig <Plug>IndentGuidesToggle
 
 
@@ -529,7 +561,7 @@ nmap <F1> :%bd<CR><CR>
 nnoremap <F2> :UndotreeToggle<CR>
 map <F3> :TlistToggle<CR>
 map <F4> :NERDTreeToggle<CR>
-nmap <F5> :set spell!<CR>
+nmap <F5> :call CleanViewToggle()<CR>
 map <F6> :set cursorline!<CR>
 noremap <silent> <F8> :<C-U>call TabsSpacesToggle()<CR>
 noremap <silent> <F8> :<C-U>call TabsSpacesToggle()<CR>
