@@ -1,6 +1,6 @@
 [user]
     email= none@none.com
-    name = JC
+    name = PanPaskuda
 [alias]
     s = status
     l = log --oneline -10
