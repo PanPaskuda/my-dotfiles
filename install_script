@@ -15,7 +15,8 @@ echo python3:
 sudo apt install python3
 echo vim:
 sudo apt install vim
-
+echo silversearcher-ag:
+sudo apt-get install silversearcher-ag
 
 echo _________________________
 echo install vundle:

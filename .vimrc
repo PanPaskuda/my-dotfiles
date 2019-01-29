@@ -29,7 +29,9 @@ call vundle#begin()
 " Let Vundle manage Vundle
 "Bundle 'gmarik/vundle'
 Plugin 'VundleVim/Vundle.vim'
-"My Bundles
+"My Bundles:
+"grep alternative used with silversearcher"
+Plugin 'mileszs/ack.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
@@ -43,7 +45,6 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'ctrlpvim/ctrlp.vim'
 "TODO old ctrlP Plugin 'vim-scripts/Command-T'
 "TODO new ctrlP to check Plugin 'vim-ctrlspace/vim-ctrlspace'
-"TODO to check: Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'vim-scripts/The-NERD-tree'
 "Plugin 'vim-scripts/OmniCppComplete'
 Plugin 'vim-scripts/taglist.vim'
@@ -255,11 +256,15 @@ let g:gitgutter_max_signs = 500  "500 is a default value
 "=========================================================
 "=                         GREP                          =
 "=========================================================
-    if has("win32")
-        set rtp +=c:\tools\grep\
-    else
-        "TODO linux
-    endif
+let g:ackprg = 'ag --nogroup --nocolor --column' "to use silversearecher-ag instead of ack
+"the same effect but will report every match on the line.
+"let g:ackprg = 'ag --vimgrep'
+
+if has("win32")
+    set rtp +=c:\tools\grep\
+else
+    "TODO linux
+endif
 
 
 "=========================================================
@@ -624,7 +629,7 @@ map <Leader>fs :cscope f s <cword><CR>
 map <Leader>ft :cscope f t <cword><CR>
 " grep this:
 map <Leader>fe :cscope f e <cword><CR>
-
+map <Leader>fa exe 'cexpr system("grep -rn --include=\"*.[ch]\" '.expand('<cword>').' . ")'<CR>
 map <Leader>fa :!grep -rn --include="*.[ch]" <cword> .<CR>
 
 "use 'v' or 's' to open in new split or vertical window
