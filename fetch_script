@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo
+echo update repo
+
+git fetch
+git rebase

@@ -113,10 +113,10 @@ let mapleader=","
 
 "set timeout ttimeoutlen=50
 if has("win32")
-    set backupdir=$VIM\backup
-    set directory=$VIM\tmp
+    "set backupdir=$VIM\backup
+    "set directory=$VIM\tmp
 else
-    set backupdir=~/.vim/backup
+    "set backupdir=~/.vim/backup
 "TODO how to swoitch off swap files    set directory=~/.vim/swap
 endif
 

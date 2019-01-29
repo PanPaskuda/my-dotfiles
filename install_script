@@ -16,6 +16,7 @@ sudo apt install python3
 echo vim:
 sudo apt install vim
 
+
 echo _________________________
 echo install vundle:
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -45,6 +46,7 @@ make all
 sudo make install
 make check
 sudo make package
+sudo rm -rdf ~/Bear_Source_Tmp/
 
 echo _________________________
 echo create backup and swap directory for vim
@@ -61,3 +63,4 @@ echo
 
 echo TODO:
 echo - install font for vim
+echo - install GVim
