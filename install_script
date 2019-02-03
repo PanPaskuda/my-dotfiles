@@ -8,16 +8,19 @@ echo
 echo _________________________
 echo installing all stuff:
 echo git: \(probably already installed\)
-sudo apt install git
+sudo apt --assume-yes install git
 echo gitk:
-sudo apt install gitk
+sudo apt --assume-yes install gitk
 echo python3:
-sudo apt install python3
+sudo apt --assume-yes install python3
 echo vim:
-sudo apt install vim
+sudo apt --assume-yes install vim
 echo silversearcher-ag:
 sudo apt-get install silversearcher-ag
-
+echo doxygen
+sudo apt --assume-yes install doxygen
+echo graphviz for a doxygen
+sudo apt --assume-yes install graphviz
 echo _________________________
 echo install vundle:
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -29,14 +32,14 @@ vim -c BundleUpdate -c q -c q
 
 echo _________________________
 echo install cmake
-sudo apt install build-essential cmake python3-dev
+sudo apt --assume-yes install build-essential cmake python3-dev
 echo install clang
 cd ~/.vim/bundle/YouCompleteMe
 python3 install.py --clang-completer
 
 echo _________________________
 echo install Excuberant tags:
-sudo apt install exuberant-ctags
+sudo apt --assume-yes install exuberant-ctags
 
 echo _________________________
 echo install Bear
