@@ -16,7 +16,7 @@ sudo apt --assume-yes install python3
 echo vim:
 sudo apt --assume-yes install vim
 echo silversearcher-ag:
-sudo apt-get install silversearcher-ag
+sudo apt --assume-yes install silversearcher-ag
 echo doxygen
 sudo apt --assume-yes install doxygen
 echo graphviz for a doxygen

@@ -7,6 +7,13 @@ echo
 echo creating symbolic links from $DIR to system dotfiles in ~/
 
 
-ln --symbolic --interactive $DIR/.gitconfig  ~/.gitconfig
-ln --symbolic --interactive $DIR/.vimrc  ~/.vimrc
+echo "install settings for a:"
+select yn in "Work" "Private"; do
+    case $yn in
+        Work ) ln --symbolic --interactive $DIR/.gitconfig_work ~/.gitconfig; break;;
+        Private ) ln --symbolic --interactive $DIR/.gitconfig_private ~/.gitconfig; break;
+    esac
+done
 
+
+ln --symbolic --interactive $DIR/.vimrc  ~/.vimrc

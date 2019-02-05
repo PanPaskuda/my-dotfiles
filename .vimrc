@@ -259,6 +259,9 @@ let g:gitgutter_max_signs = 500  "500 is a default value
 let g:ackprg = 'ag --nogroup --nocolor --column' "to use silversearecher-ag instead of ack
 "the same effect but will report every match on the line.
 "let g:ackprg = 'ag --vimgrep'
+map <Leader>fa :Ack <cword><CR>
+"map <Leader>fa exe 'cexpr system("grep -rn --include=\"*.[ch]\" '.expand('<cword>').' . ")'<CR>
+"map <Leader>fa :!grep -rn --include="*.[ch]" <cword> .<CR>
 
 if has("win32")
     set rtp +=c:\tools\grep\
@@ -629,8 +632,7 @@ map <Leader>fs :cscope f s <cword><CR>
 map <Leader>ft :cscope f t <cword><CR>
 " grep this:
 map <Leader>fe :cscope f e <cword><CR>
-map <Leader>fa exe 'cexpr system("grep -rn --include=\"*.[ch]\" '.expand('<cword>').' . ")'<CR>
-map <Leader>fa :!grep -rn --include="*.[ch]" <cword> .<CR>
+
 
 "use 'v' or 's' to open in new split or vertical window
 nmap <Leader>fvs :vert scs find s <C-R>=expand("<cword>")<CR><CR>
