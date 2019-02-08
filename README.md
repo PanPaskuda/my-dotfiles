@@ -1,9 +1,9 @@
 # my-dotfiles
 
 run symlink_script to create/overrie/update your system dotiles from ~/
-
+run install_script to install all standard packets and Vim with all plugins
 <br>
 
 TODO:
 
-  semi-auto vim install script
+add main script to call all desired scripts
