@@ -81,8 +81,6 @@ set autowrite   " Automatically save before commands like :next and :make
 set hidden     " Hide buffers when they are abandoned
 set mouse=a     " Enable mouse usage (all modes)
 set hlsearch    "highlight all search results
-set list listchars=tab:>-,trail:~,extends:>,precedes:<,nbsp:o,space:·
-set list
 set incsearch   " highlight find results during writing /fin...
 set textwidth=100
 set colorcolumn=+1
@@ -93,8 +91,7 @@ set cmdheight=2 " Height of the command bar
 set updatetime=100 "100ms time of upadating i.e. gitgutter signs
 set nrformats-=octal
 set guioptions=aegimrLtTc "default + 'c' for block gui popups
-set cursorline "Highlight the screen line of the cursor
-"Use console dialogs instead of popup dialogs
+set spl=en spell "set spell checking to English
 
 " set path+=** TODO check how it works
 
@@ -125,23 +122,35 @@ endif
 "===========================================================
 "=                     CLEAN_VIEW                          =
 "===========================================================
-let g:clean_view_on = 0
+function! CleanViewEnable()
+    set nospell
+    IndentGuidesDisable
+    set list listchars=tab:>-
+    set nocursorline
+    let g:clean_view_on =0
+endfunction
+
+function! CleanViewDisable()
+    set spell
+    IndentGuidesEnable
+    set list listchars=tab:>-,trail:~,extends:>,precedes:<,nbsp:o,space:·
+    set cursorline
+    let g:clean_view_on =1
+endfunction
+
+if has ("gui_running")
+    call CleanViewDisable()
+else
+    call CleanViewEnable()
+endif
 
 function! CleanViewToggle()
     echo "toggle CleanView"
     if bufwinnr(1)
         if(g:clean_view_on ==0)
-            set spell
-            IndentGuidesEnable
-            set list listchars=tab:>-,trail:~,extends:>,precedes:<,nbsp:o,space:·
-            set cursorline
-            let g:clean_view_on =1
+            call CleanViewDisable()
         else
-            set nospell
-            IndentGuidesDisable
-            set list listchars=tab:>-
-            set nocursorline
-            let g:clean_view_on =0
+            call CleanViewEnable()
         endif
     endif
 endfunction
@@ -254,14 +263,28 @@ let g:gitgutter_max_signs = 500  "500 is a default value
 
 
 "=========================================================
-"=                         GREP                          =
+"=                         ACK                           =
 "=========================================================
+let g:ackhighlight = 1 "highlight the searched term
+let g:ack_autofold_results = 0 " 1= fold the results in quickfix by file name
 let g:ackprg = 'ag --nogroup --nocolor --column' "to use silversearecher-ag instead of ack
 "the same effect but will report every match on the line.
 "let g:ackprg = 'ag --vimgrep'
-map <Leader>fa :Ack <cword><CR>
+map <Leader>fa :Ack! <cword><CR>
 "map <Leader>fa exe 'cexpr system("grep -rn --include=\"*.[ch]\" '.expand('<cword>').' . ")'<CR>
 "map <Leader>fa :!grep -rn --include="*.[ch]" <cword> .<CR>
+"default mappings:
+" ?      display a quick summary of these mappings.
+" o      open file (same as Enter).
+" O      open file and close the quickfix window.
+" go     preview file (open but maintain focus on ack.vim results).
+" t      open in a new tab.
+" T      open in new tab without moving to it.
+" h      open in horizontal split.
+" H      open in horizontal split, keeping focus on the results.
+" v      open in vertical split.
+" gv     open in vertical split, keeping focus on the results.
+" q      close the quickfix window.
 
 if has("win32")
     set rtp +=c:\tools\grep\
@@ -300,13 +323,6 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
-
-
-"=========================================================
-"=                         SPELL                         =
-"=========================================================
-set spl=en spell "set spell checking to English
-set spell
 
 
 "=========================================================
@@ -565,19 +581,22 @@ noremap <Right> <NOP>
 "nmap <F1> :set rnu<CR> "set relative number
 "nmap <S-F1> :set nu<CR> "set number
 "nmap <F1> :%bd|e#<CR><CR>
-nmap <F1> :%bd<CR><CR>
-nnoremap <F2> :UndotreeToggle<CR>
-map <F3> :TlistToggle<CR>
-map <F4> :NERDTreeToggle<CR>
-nmap <F5> :call CleanViewToggle()<CR>
-map <F6> :set cursorline!<CR>
+noremap <F1> :%bd<CR><CR>
+noremap <F2> :UndotreeToggle<CR>
+noremap <F3> :TlistToggle<CR>
+noremap <F4> :NERDTreeToggle<CR>
+noremap <F5> :call CleanViewToggle()<CR>
+noremap <F6> :set cursorline!<CR>
 noremap <silent> <F8> :<C-U>call TabsSpacesToggle()<CR>
 noremap <silent> <F8> :<C-U>call TabsSpacesToggle()<CR>
-nnoremap <silent> <F9> :<C-U>call VimDiffToggle()<CR>
-nnoremap <silent> <F10> :<C-U>call SplitToggle()<CR>
-nnoremap <F11> :YcmForceCompileAndDiagnostics<CR>:YcmDiag<CR>
+noremap <silent> <F9> :<C-U>call VimDiffToggle()<CR>
+noremap <silent> <F10> :<C-U>call SplitToggle()<CR>
+noremap <S-F11> :YcmRestartServer <CR>
+noremap <F11> :YcmForceCompileAndDiagnostics<CR>:YcmDiag<CR>
 "map <F12> :call CreateTags()<CR>
-map <silent><F12> :call CreateCscopeDatabase()<CR>
+noremap <silent><F12> :call CreateCscopeDatabase()<CR>
+"TODO add an script to noremap <silent><S-F12> :call CreateBearYcmCscope()<CR>
+
 
 
 "=                      GENERAL                         =
