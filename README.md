@@ -6,4 +6,7 @@ run install_script to install all standard packets and Vim with all plugins
 
 TODO:
 
-add main script to call all desired scripts
++ add main script to call all desired scripts
+
++ add windows .bat version of scripts
++ add support for windows in vimrc
