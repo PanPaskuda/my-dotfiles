@@ -19,6 +19,7 @@ runtime! debian.vim
 "   :BundleUpdate
 "because of Vundle
 set nocompatible
+
 filetype off " required
 
 set rtp +=~/.vim/bundle/Vundle.vim
@@ -35,7 +36,11 @@ Plugin 'mileszs/ack.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
-Plugin 'airblade/vim-gitgutter'
+if has("win32")
+    "NOTE issue in windows?
+else
+    Plugin 'airblade/vim-gitgutter'
+endif
 Plugin 'vim-airline/vim-airline'
 Plugin 'nathanaelkane/vim-indent-guides'
 "TODO needed? Plugin 'vim-airline/vim-airline-themes'
@@ -584,6 +589,7 @@ noremap <Right> <NOP>
 noremap <F1> :%bd<CR><CR>
 noremap <F2> :UndotreeToggle<CR>
 noremap <F3> :TlistToggle<CR>
+inoremap <F4> <ESC>:NERDTreeToggle<CR>
 noremap <F4> :NERDTreeToggle<CR>
 noremap <F5> :call CleanViewToggle()<CR>
 noremap <F6> :set cursorline!<CR>
@@ -608,6 +614,8 @@ nmap <CR> A<CR><ESC>
 nmap <leader>s z=
 "TODO: how to fix it nmap <Leader>gh :h <cword><CR>
 
+"highlight a word but do not jump:
+nmap <silent> * "syiw<Esc>: let @/ = @s<CR>
 
 
 "=                     EASY MOTION                       =
