@@ -67,9 +67,19 @@ call vundle#end()
 syntax on "syntax highlighting
 set background=dark
 
-if has("autocmd") "to jump to the last position when reopening a file
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
+
+" Put all autocmds in some augroup and use au! to clear the group.
+augroup vimrcAutocmds
+    "Remove ALL autocommands for the current group
+    autocmd!
+    "to jump to the last position when reopening a file
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    "if cursor doesn't move, check whether the current file is up to date
+    autocmd CursorHold * checktime
+    "treat *.cog files as "c" files
+    autocmd BufRead,BufNewFile *.cog        setfiletype c
+augroup END
+
 
 filetype plugin indent on
 filetype plugin on
@@ -97,6 +107,14 @@ set updatetime=100 "100ms time of upadating i.e. gitgutter signs
 set nrformats-=octal
 set guioptions=aegimrLtTc "default + 'c' for block gui popups
 set spl=en spell "set spell checking to English
+set tabstop=4 "tab set to 4 spaces
+set backspace=indent,eol,start "make backspace work like most other programs
+set rnu "show relative line number
+set number "show current line number
+set expandtab "remove tab to spaces
+set shiftwidth=4 "4 space for (auto)indent.
+set nobackup "disable creation backup files
+set noswapfile "disable creation swap files
 
 " set path+=** TODO check how it works
 
@@ -132,6 +150,7 @@ function! CleanViewEnable()
     IndentGuidesDisable
     set list listchars=tab:>-
     set nocursorline
+    set nornu
     let g:clean_view_on =0
 endfunction
 
@@ -140,6 +159,7 @@ function! CleanViewDisable()
     IndentGuidesEnable
     set list listchars=tab:>-,trail:~,extends:>,precedes:<,nbsp:o,space:·
     set cursorline
+    set rnu
     let g:clean_view_on =1
 endfunction
 
@@ -583,8 +603,6 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 "=                      F1 - F12                         =
-"nmap <F1> :set rnu<CR> "set relative number
-"nmap <S-F1> :set nu<CR> "set number
 "nmap <F1> :%bd|e#<CR><CR>
 noremap <F1> :%bd<CR><CR>
 noremap <F2> :UndotreeToggle<CR>
@@ -823,30 +841,6 @@ map <A-c> "c
 
 
 
-"tab set to 4 spaces
-set tabstop=4
-set backspace=indent,eol,start "make backspace work like most other programs
-
-"remove tab to spaces
-set expandtab
-
-set sw=4
-
-"set relative number
-set rnu
-
-"set current line number
-set number
-
-"disable creation backup files
-set nobackup
-set noswapfile
-
-"treat *.cog files as "c" files
-au BufRead,BufNewFile *.cog        setfiletype c
-
-"if cursor doesn't move, check whether the current file is up to date
-au CursorHold * checktime
 
 "modify the status line
 set statusline=%t\ %{FugitiveStatusline()}\ FileType:\ %y\ FileEncoding:\ %{&fenc}%=%P\ 0x%02B\ %3c
