@@ -19,7 +19,7 @@ runtime! debian.vim
 "   :BundleUpdate
 "because of Vundle
 set nocompatible
-
+set langmenu=en "set menu to English - must be called before menu is loaded
 filetype off " required
 
 set rtp +=~/.vim/bundle/Vundle.vim
@@ -107,14 +107,17 @@ set updatetime=100 "100ms time of upadating i.e. gitgutter signs
 set nrformats-=octal
 set guioptions=aegimrLtTc "default + 'c' for block gui popups
 set spl=en spell "set spell checking to English
+set expandtab "remove tab to spaces
 set tabstop=4 "tab set to 4 spaces
+set shiftwidth=4 "4 space for (auto)indent.
+set shiftround "roun indent to multiple of 'shiftwidth'
 set backspace=indent,eol,start "make backspace work like most other programs
 set rnu "show relative line number
 set number "show current line number
-set expandtab "remove tab to spaces
-set shiftwidth=4 "4 space for (auto)indent.
 set nobackup "disable creation backup files
 set noswapfile "disable creation swap files
+set whichwrap=<,>,h,l "wrap to next lines for arrows and h,l
+set visualbell "make a short visual flash instead of error beep
 
 " set path+=** TODO check how it works
 
@@ -619,6 +622,8 @@ noremap <S-F11> :YcmRestartServer <CR>
 noremap <F11> :YcmForceCompileAndDiagnostics<CR>:YcmDiag<CR>
 "map <F12> :call CreateTags()<CR>
 noremap <silent><F12> :call CreateCscopeDatabase()<CR>
+noremap <leader>w :w<CR>
+command W w
 "TODO add an script to noremap <silent><S-F12> :call CreateBearYcmCscope()<CR>
 
 
