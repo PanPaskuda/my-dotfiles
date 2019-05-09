@@ -117,7 +117,8 @@ set number "show current line number
 set nobackup "disable creation backup files
 set noswapfile "disable creation swap files
 set whichwrap=<,>,h,l "wrap to next lines for arrows and h,l
-set visualbell "make a short visual flash instead of error beep
+set visualbell "make a short visual flash instead of an error beep
+set lazyredraw " Don't redraw while executing macros (good performance config)
 
 " set path+=** TODO check how it works
 
@@ -623,94 +624,93 @@ noremap <F11> :YcmForceCompileAndDiagnostics<CR>:YcmDiag<CR>
 "map <F12> :call CreateTags()<CR>
 noremap <silent><F12> :call CreateCscopeDatabase()<CR>
 noremap <leader>w :w<CR>
-command W w
+command! W w
 "TODO add an script to noremap <silent><S-F12> :call CreateBearYcmCscope()<CR>
 
 
 
 "=                      GENERAL                         =
 "put enter and strip in previous line all spaces till the nearest non space
-nmap K :call StringTrailingWhiteSpace()<CR>i<CR><ESC>
-nmap <CR> A<CR><ESC>
+nnoremap K :call StringTrailingWhiteSpace()<CR>i<CR><ESC>
+nnoremap <CR> A<CR><ESC>
 "strip all spaces till the nearest non space sign
 "enable/disable spell checking
-nmap <leader>s z=
+nnoremap <leader>s z=
 "TODO: how to fix it nmap <Leader>gh :h <cword><CR>
 
 "highlight a word but do not jump:
-nmap <silent> * "syiw<Esc>: let @/ = @s<CR>
-
+nnoremap <silent> * "syiw<Esc>: let @/ = @s<CR>
 
 "=                     EASY MOTION                       =
 " Jump to anywhere you want with minimal keystrokes, with just one key binding:   `s{char}{label}`
-nmap <space> <Plug>(easymotion-overwin-f)
+nnoremap <space> <Plug>(easymotion-overwin-f)
 " or  `s{char}{char}{label}`   Need one more keystroke, but on average, it may be more comfortable.
-nmap <leader><space> <Plug>(easymotion-overwin-f2)
+nnoremap <leader><space> <Plug>(easymotion-overwin-f2)
 
-nmap <Leader>w <Plug>(easymotion-w)
-nmap <Leader>W <Plug>(easymotion-W)
-nmap <Leader>b <Plug>(easymotion-b)
-nmap <Leader>B <Plug>(easymotion-B)
-nmap <Leader>e <Plug>(easymotion-e)
-nmap <Leader>E <Plug>(easymotion-E)
-nmap <Leader>ge <Plug>(easymotion-ge)
-nmap <Leader>gE <Plug>(easymotion-gE)
-nmap <Leader>j <Plug>(easymotion-j)
-nmap <Leader>k <Plug>(easymotion-k)
-"nmap <Leader>n <Plug>(easymotion-bd-n)
-"nmap <Leader>N <Plug>(easymotion-N)
-"nmap <Leader>s <Plug>(easymotion-s)
+nnoremap <Leader>w <Plug>(easymotion-w)
+nnoremap <Leader>W <Plug>(easymotion-W)
+nnoremap <Leader>b <Plug>(easymotion-b)
+nnoremap <Leader>B <Plug>(easymotion-B)
+nnoremap <Leader>e <Plug>(easymotion-e)
+nnoremap <Leader>E <Plug>(easymotion-E)
+nnoremap <Leader>ge <Plug>(easymotion-ge)
+nnoremap <Leader>gE <Plug>(easymotion-gE)
+nnoremap <Leader>j <Plug>(easymotion-j)
+nnoremap <Leader>k <Plug>(easymotion-k)
+"nnoremap <Leader>n <Plug>(easymotion-bd-n)
+"nnoremap <Leader>N <Plug>(easymotion-N)
+"nnoremap <Leader>s <Plug>(easymotion-s)
 
 
 "=                         CSCOPE                          =
 "create database for C
-map <leader>csa :call CreateCscopeDatabase()<CR>
+noremap <leader>csa :call CreateCscopeDatabase()<CR>
 
 " find callers:
-map <Leader>fc :cscope f c <cword><CR>
+noremap <Leader>fc :cscope f c <cword><CR>
 " find callees:
-map <Leader>fd :cscope f d <cword><CR>
+noremap <Leader>fd :cscope f d <cword><CR>
 " find definition:
-map <Leader>fg :cscope f g <cword><CR>
+noremap <Leader>fg :cscope f g <cword><CR>
 " find file:
-map <Leader>ff :cscope f f <cword><CR>
+noremap <Leader>ff :cscope f f <cword><CR>
 " find files including this:
-map <Leader>fi :cscope f i %:t<CR>
+noremap <Leader>fi :cscope f i %:t<CR>
 " find symbol:
-map <Leader>fs :cscope f s <cword><CR>
+noremap <Leader>fs :cscope f s <cword><CR>
 " find text:
-map <Leader>ft :cscope f t <cword><CR>
+noremap <Leader>ft :cscope f t <cword><CR>
 " grep this:
-map <Leader>fe :cscope f e <cword><CR>
+noremap <Leader>fe :cscope f e <cword><CR>
 
 
 "use 'v' or 's' to open in new split or vertical window
-nmap <Leader>fvs :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fvg :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fvc :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fvt :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fve :vert scs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fvf :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <Leader>fvi :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <Leader>fvd :vert scs find d <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fva :vert scs find a <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fvs :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fvg :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fvc :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fvt :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fve :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fvf :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+nnoremap <Leader>fvi :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nnoremap <Leader>fvd :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fva :vert scs find a <C-R>=expand("<cword>")<CR><CR>
 
-nmap <Leader>fss :scs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fsg :scs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fsc :scs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fst :scs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fse :scs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fsf :scs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <Leader>fsi :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <Leader>fsd :scs find d <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>fsa :scs find a <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fss :scs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fsg :scs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fsc :scs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fst :scs find t <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fse :scs find e <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fsf :scs find f <C-R>=expand("<cfile>")<CR><CR>
+nnoremap <Leader>fsi :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nnoremap <Leader>fsd :scs find d <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fsa :scs find a <C-R>=expand("<cword>")<CR><CR>
 
 "=                      YouCompleteMe                    =
 nnoremap <Leader>yy :YcmCompleter<CR>
 "jump back
-nmap <leader>jb <C-O>
+nnoremap <leader>jb <C-O>
 "jump forward
-nmap <leader>jf <C-I>
+nnoremap <leader>jf <C-I>
 
 "DefinitionElseDeclaration<CR>
 nnoremap <silent> <leader> yg :YcmCompleter GoTo <CR>
@@ -764,31 +764,29 @@ let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
 "=                     DRAG VISUALS                      =
-vmap  <expr>  <LEFT>   DVB_Drag('left')
-vmap  <expr>  <RIGHT>  DVB_Drag('right')
-vmap  <expr>  <DOWN>   DVB_Drag('down')
-vmap  <expr>  <UP>     DVB_Drag('up')
-vmap  <expr>  D        DVB_Duplicate()
+vnoremap  <expr>  <LEFT>   DVB_Drag('left')
+vnoremap  <expr>  <RIGHT>  DVB_Drag('right')
+vnoremap  <expr>  <DOWN>   DVB_Drag('down')
+vnoremap  <expr>  <UP>     DVB_Drag('up')
+vnoremap  <expr>  D        DVB_Duplicate()
 
-vmap  <expr>  <S-LEFT>   DVB_Drag('left')
-vmap  <expr>  <S-RIGHT>  DVB_Drag('right')
-vmap  <expr>  <S-DOWN>   DVB_Drag('down')
-vmap  <expr>  <S-UP>     DVB_Drag('up')
+vnoremap  <expr>  <S-LEFT>   DVB_Drag('left')
+vnoremap  <expr>  <S-RIGHT>  DVB_Drag('right')
+vnoremap  <expr>  <S-DOWN>   DVB_Drag('down')
+vnoremap  <expr>  <S-UP>     DVB_Drag('up')
 
 
 "=                         TABS                          =
-"create tab
-nmap <leader>tcr :tabnew<CR>
+"TODO obsolete 'create new tab' mapping to delete in the future
+nnoremap <leader>tcr :echo "use <leader>tn instead (leader Tab Next)"<CR>
+"create new tab
+nnoremap <leader>tn :tabnew<CR>
 "close tab
-nmap <leader>tcl :tabclose<CR>
+nnoremap <leader>tc :tabclose<CR>
 "move tab
-nmap <leader>tm :tabmove<CR>
-"next tab
-nmap <leader>tn :tabnext<CR>
-"previous tab
-nmap <leader>tp :tabprevious<CR>
+nnoremap <leader>tm :tabmove<CR>
 "first tab
-nmap <leader>tf :tabfirst<CR>
+nnoremap <leader>tf :tabfirst<CR>
 
 
 "shift lines using alt+jk (in all modes)
@@ -800,47 +798,47 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 "sugestion for autocompletion C/C++ word
-imap <leader>c <C-x><C-o>
+inoremap <leader>c <C-x><C-o>
 
 "coment-out
-nmap <leader>o 'aO#if 0<ESC>'zo#endif<ESC>0
+nnoremap <leader>o 'aO#if 0<ESC>'zo#endif<ESC>0
 
 "delete sign - like 'x' in normal mode
-imap <A-x> <del>
-cmap <A-x> <del>
+inoremap <A-x> <del>
+cnoremap <A-x> <del>
 
 "close all
-map <C-q> :qall<CR>
+noremap <C-q> :qall<CR>
 
 "actions for window: resize, equal, navigate
-nmap <C-=> <C-w>=
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
-nmap <C-0> <C-w>+
-nmap <C-9> <C-w>-
-"nmap <C-H> <C-w>H
-"nmap <C-J> <C-w>J
-"nmap <C-K> <C-w>K
-"nmap <C-L> <C-w>L
+nnoremap <C-=> <C-w>=
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-0> <C-w>+
+nnoremap <C-9> <C-w>-
+"nnoremap <C-H> <C-w>H
+"nnoremap <C-J> <C-w>J
+"nnoremap <C-K> <C-w>K
+"nnoremap <C-L> <C-w>L
 
 "rotate window
-nmap <A-r> <C-w>r
+nnoremap <A-r> <C-w>r
 
 "copy rest text of a current line
-nmap <S-y> y$
+nnoremap <S-y> y$
 
 "jump to first and last character on the current line
-nmap <A-h> ^
-nmap <A-l> $
-vmap <A-h> ^
-vmap <A-l> $
+nnoremap <A-h> ^
+nnoremap <A-l> $
+vnoremap <A-h> ^
+vnoremap <A-l> $
 
 "set buffer for copy/paste
-map <A-a> "a
-map <A-b> "b
-map <A-c> "c
+noremap <A-a> "a
+noremap <A-b> "b
+noremap <A-c> "c
 
 
 
