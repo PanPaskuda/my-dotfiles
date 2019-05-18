@@ -654,8 +654,6 @@ noremap <S-F11> :YcmRestartServer <CR>
 noremap <F11> :YcmForceCompileAndDiagnostics<CR>:YcmDiag<CR>
 "map <F12> :call CreateTags()<CR>
 noremap <silent><F12> :call CreateCscopeDatabase()<CR>
-noremap <leader>w :w<CR>
-command! W w
 "TODO add an script to noremap <silent><S-F12> :call CreateBearYcmCscope()<CR>
 "}}}
 
@@ -664,14 +662,29 @@ command! W w
 "put enter and strip in previous line all spaces till the nearest non space
 nnoremap K :call StringTrailingWhiteSpace()<CR>i<CR><ESC>
 nnoremap <CR> A<CR><ESC>
-"strip all spaces till the nearest non space sign
+"alternative saves
+noremap <leader>w :w<CR>
+command! W w
+"highlight a word but do not jump:
+nnoremap <silent> * "syiw<Esc>: let @/ = @s<CR>
+nnoremap n nzz
+nnoremap N Nzz
 "enable/disable spell checking
 nnoremap <leader>s z=
+"let <C-U> and <C-W> be able to undo
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
+"open vimrc
+nnoremap <leader>vo :vsplit $MYVIMRC<CR>
+"source vimrc
+nnoremap <leader>vs :source $MYVIMRC<CR>
+"escape from the insert mode by jk
+inoremap jk <ESC>
+"show content of all register
+nnoremap <silent> "" :registers<CR>
 "TODO: how to fix it nmap <Leader>gh :h <cword><CR>
 "}}}
 
-"highlight a word but do not jump:
-nnoremap <silent> * "syiw<Esc>: let @/ = @s<CR>
 
 "}}}
 
