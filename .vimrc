@@ -10,15 +10,53 @@ runtime! debian.vim
 " use <leader>vs to sorce vimrc again
 
 
-"=========================================================
+" TABLE_OF_CONTENTS:
+" + VUNDLE_PLUGIN_MANAGER
+" + AUTO_CMD
+" + GENERAL_SETTINGS
+" PLUGINS_AND_FUNCTIONS:
+
+" + CLEAN_VIEW function
+" + CSCOPE
+" + CCTREE
+" + YOU_COMPLETE_ME
+" + MULTIPLE_CURSORS
+" + GIT_GUTTER
+" + ACK
+" + SURROUND
+" + INDENT_GUIDE
+" + UNDO_TREE
+" + VIM_DIFF_TOGGLE
+" + SPLIT_TOGGLE
+" + TAB_SPACES_TOGGLE
+" + DRAG_VISUALS
+" + COLOR_SCHEME
+" + CTRL_P
+" + SILVER_SERCHER
+" + EASY_MOTION
+" SHORT_KEYS_MAPPING:
+" + ARROW_KEYS
+" + F1_F12
+" + GENERAL_MAPPING
+" + OPERATOR_PENDING
+" + EASY_MOTION
+" + CSCOPE
+" + YOU_COMPLETE_ME
+" + MULTIPLE_CURSORS
+" + DRAG_VISUALS
+" + TABS
+
+"=============================================================
 "    TODO
-"=========================================================
+"=============================================================
 "  +  terminal view
 "  +  preproc view
-
-"=========================================================
-"=                        VUNDLE                         = {{{
-"=========================================================
+"  +  description of content + real hyperlinks
+"  +  maps for copen cclose cwindow etc...
+"  +  create a function to create a full config: CD, YCM, tags
+"=============================================================
+"=              VUNDLE_PLUGIN_MANAGER                    = {{{
+"=============================================================
 "HELP: How to install vudle:
 "   set up Vundle:
 "       git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -99,7 +137,7 @@ filetype plugin on
 
 
 "===========================================================
-"=                         GENERAL                       = {{{
+"=                   GENERAL_SETTINGS                  = {{{
 "===========================================================
 set showcmd     " Show (partial) command in status line.
 set showmatch   " Show matching brackets.
@@ -266,9 +304,9 @@ let g:CCTreeDisplayMode = 1
 "}}}
 
 
-"=========================================================
-"=                      YouCompleteMe                    = {{{
-"=========================================================
+"=============================================================
+"=                      YOU_COMPLETE_ME                  = {{{
+"=============================================================
 "NOTE: to recompile YCM:
 "       cd ~/.vim/bundle/YouCompleteMe
 "       python3 install.py --clang-completer
@@ -284,18 +322,18 @@ let g:ycm_max_diagnostics_to_display = 200
 "}}}
 
 
-"=========================================================
+"=============================================================
 "=                    MULTIPLE_CURSORS                   = {{{
-"=========================================================
+"=============================================================
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_exit_from_visual_mode=1
 let g:multi_cursor_exit_from_insert_mode=1
 "}}}
 
 
-"=========================================================
+"=============================================================
 "=                      GIT_GUTTER                       = {{{
-"=========================================================
+"=============================================================
 let g:gitgutter_max_signs = 500  "500 is a default value
 "    jump to next hunk (change): ]c
 "    jump to previous hunk (change): [c.
@@ -311,9 +349,9 @@ let g:gitgutter_max_signs = 500  "500 is a default value
 "}}}
 
 
-"=========================================================
+"=============================================================
 "=                         ACK                           = {{{
-"=========================================================
+"=============================================================
 let g:ackhighlight = 1 "highlight the searched term
 let g:ack_autofold_results = 0 " 1= fold the results in quickfix by file name
 let g:ackprg = 'ag --nogroup --nocolor --column' "to use silversearecher-ag instead of ack
@@ -342,9 +380,9 @@ else
 endif
 "}}}
 
-"=========================================================
+"=============================================================
 "=                      SURROUND                         = {{{
-"=========================================================
+"=============================================================
 "options: ds, cs, cS, ys, yS, yss, ySs, ySS
 " cs"'    to change surrounding " to '
 " ds" To remove the delimiters entirely
@@ -355,9 +393,9 @@ endif
 "}}}
 
 
-"=========================================================
+"=============================================================
 "=                    INDENT_GUIDES                      = {{{
-"=========================================================
+"=============================================================
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_space_guides = 1
@@ -366,9 +404,9 @@ let g:indent_guides_tab_guides = 1
 "}}}
 
 
-"=========================================================
+"=============================================================
 "=                       UNDO_TREE                       = {{{
-"=========================================================
+"=============================================================
 let g:loaded_undotree = 1 "widow style
 if has("persistent_undo")
     set undodir=~/.undodir/
@@ -377,9 +415,9 @@ endif
 "}}}
 
 
-"=========================================================
-"=                   VIM DIFF TOGGLE                     = {{{
-"=========================================================
+"=============================================================
+"=                   VIM_DIFF_TOGGLE                     = {{{
+"=============================================================
 let g:vim_diff_on=0
 
 function! VimDiffToggle()
@@ -396,9 +434,9 @@ endfunction
 "}}}
 
 
-"=========================================================
-"=                     SPLIT TOGGLE                      = {{{
-"=========================================================
+"=============================================================
+"=                     SPLIT_TOGGLE                      = {{{
+"=============================================================
 let g:vertical_toggle=0
 
 function! SplitToggle()
@@ -419,9 +457,9 @@ endfunction
 "}}}
 
 
-"=========================================================
-"=                  TAB/SPACES TOGGLE                    = {{{
-"=========================================================
+"=============================================================
+"=                  TAB_SPACES_TOGGLE                    = {{{
+"=============================================================
 let g:spaces_indenting=1
 let g:linux_kernel_tabs=0
 
@@ -458,9 +496,9 @@ endfunction
 "}}}
 
 
-"=========================================================
-"=                     DRAG VISUALS                      = {{{
-"=========================================================
+"=============================================================
+"=                     DRAG_VISUALS                      = {{{
+"=============================================================
 runtime plugin/dragvisuals.vim
 " Remove any introduced trailing whitespace after moving...
 let g:DVB_TrimWS = 1
@@ -483,9 +521,9 @@ let g:EasyGrepFileAssociationsInExplorer=1 "allowed to set group of
 "}}}
 
 
-"=========================================================
-"=                      COLOR SCHEME                     = {{{
-"=========================================================
+"=============================================================
+"=                      COLOR_SCHEME                     = {{{
+"=============================================================
 set background=dark
 colorscheme solarized
 highlight ExtraWhitespace ctermfg=white ctermbg=red guifg=white guibg=red
@@ -575,9 +613,9 @@ endfunction
 "}}}
 
 
-"=========================================================
-"=                        CTRL-P                         = {{{
-"=========================================================
+"=============================================================
+"=                        CTRL_P                         = {{{
+"=============================================================
 "NOTE: <C-UP> / <C-DOWN> to switch buff / MRU / files
 "NOTE press <F5> inside CtrlP to refresh cache
 
@@ -611,25 +649,25 @@ let g:ctrlp_custom_ignore = {
 "}}}
 
 
-"=========================================================
-"=                    SILVER SERCHER                     = {{{
-"=========================================================
+"=============================================================
+"=                    SILVER_SERCHER                     = {{{
+"=============================================================
 "let g:ackprg = 'ag --nogroup --nocolor --column'
 "}}}
 
 
-"=========================================================
-"=                     EASY MOTION                       = {{{
-"=========================================================
+"=============================================================
+"=                     EASY_MOTION                       = {{{
+"=============================================================
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1 " Turn on case insensitive feature
 "}}}
 
 
-"=========================================================
-"=                  SHORT KEYS MAPPING                   =
-"=========================================================
-"=                    ARROW KEYS                         = {{{
+"=============================================================
+"=                  SHORT_KEYS_MAPPING                       =
+"=============================================================
+"=                    ARROW_KEYS                         = {{{
 "NOTE: can by added by plugin: wikitopian/hardmode
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -637,7 +675,7 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 "}}}
 
-"=                      F1 - F12                         = {{{
+"=                      F1_F12                           = {{{
 "nmap <F1> :%bd|e#<CR><CR>
 noremap <F1> :%bd<CR><CR>
 noremap <F2> :UndotreeToggle<CR>
@@ -658,7 +696,7 @@ noremap <silent><F12> :call CreateCscopeDatabase()<CR>
 "}}}
 
 
-"=                      GENERAL                         = {{{
+"=                      GENERAL_MAPPING                  = {{{
 "put enter and strip in previous line all spaces till the nearest non space
 nnoremap K :call StringTrailingWhiteSpace()<CR>i<CR><ESC>
 nnoremap <CR> A<CR><ESC>
@@ -689,7 +727,7 @@ nnoremap <silent> "" :registers<CR>
 "}}}
 
 
-"=                     EASY MOTION                       = {{{
+"=                     EASY_MOTION                       = {{{
 " Jump to anywhere you want with minimal keystrokes, with just one key binding:   `s{char}{label}`
 nnoremap <space> <Plug>(easymotion-overwin-f)
 " or  `s{char}{char}{label}`   Need one more keystroke, but on average, it may be more comfortable.
@@ -756,7 +794,7 @@ nnoremap <Leader>fsa :scs find a <C-R>=expand("<cword>")<CR><CR>
 "}}}
 
 
-"=                      YouCompleteMe                    = {{{
+"=                    YOU_COMPLETE_ME                    = {{{
 nnoremap <Leader>yy :YcmCompleter<CR>
 "jump back
 nnoremap <leader>jb <C-O>
@@ -819,7 +857,7 @@ let g:multi_cursor_quit_key            = '<Esc>'
 "}}}
 
 
-"=                     DRAG VISUALS                      = {{{
+"=                     DRAG_VISUALS                      = {{{
 vnoremap  <expr>  <LEFT>   DVB_Drag('left')
 vnoremap  <expr>  <RIGHT>  DVB_Drag('right')
 vnoremap  <expr>  <DOWN>   DVB_Drag('down')
