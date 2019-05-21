@@ -705,8 +705,12 @@ noremap <leader>w :w<CR>
 command! W w
 "highlight a word but do not jump:
 nnoremap <silent> * "syiw<Esc>: let @/ = @s<CR>
+"center a view at the search occurrence
 nnoremap n nzz
 nnoremap N Nzz
+"search using the 'verymagic' option
+nnoremap / /\v
+nnoremap ? ?\v
 "enable/disable spell checking
 nnoremap <leader>s z=
 "let <C-U> and <C-W> be able to undo
@@ -720,7 +724,8 @@ nnoremap <leader>vs :source $MYVIMRC<CR>
 inoremap jk <ESC>
 "show content of all register
 nnoremap <silent> "" :registers<CR>
-"TODO: how to fix it nmap <Leader>gh :h <cword><CR>
+"open in vsplit last buffer
+nnoremap <leader>,bb :execute "rightbelow vsplit " . bufname("#")<CR>
 "}}}
 
 
