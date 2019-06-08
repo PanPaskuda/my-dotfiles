@@ -370,7 +370,9 @@ let g:ack_autofold_results = 0 " 1= fold the results in quickfix by file name
 let g:ackprg = 'ag --nogroup --nocolor --column' "to use silversearecher-ag instead of ack
 "the same effect but will report every match on the line.
 "let g:ackprg = 'ag --vimgrep'
-map <Leader>fa :Ack! <cword><CR>
+nnoremap <Leader>fa :Ack! -Q '<cword>'<CR>
+nnoremap <Leader>fA :Ack! -Q '<cWORD>'<CR>
+vnoremap <Leader>fa :<C-U>Ack! -Q '<C-R>*'<CR>
 "map <Leader>fa exe 'cexpr system("grep -rn --include=\"*.[ch]\" '.expand('<cword>').' . ")'<CR>
 "map <Leader>fa :!grep -rn --include="*.[ch]" <cword> .<CR>
 "default mappings:
