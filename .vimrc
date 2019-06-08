@@ -82,7 +82,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 if has("win32")
-    "NOTE issue in windows?
+    "NOTE: issue on windows?
 else
     Plugin 'airblade/vim-gitgutter'
 endif
@@ -197,6 +197,19 @@ else
 endif
 "}}}
 
+"===========================================================
+"=                   CREATE_WORKSPACE                  = {{{
+"===========================================================
+function! CreateWorkspace()
+"TODO:
+"1. Create session file
+"2. Set path
+"3. Index ctags with ignored directories
+"4. Index ctrl_p with ignored directories
+"5. Prepare flags for YCM
+
+endfunction
+}}}
 
 "===========================================================
 "=                     CLEAN_VIEW                        = {{{
@@ -616,14 +629,11 @@ endfunction
 "=============================================================
 "=                        CTRL_P                         = {{{
 "=============================================================
-"NOTE: <C-UP> / <C-DOWN> to switch buff / MRU / files
-"NOTE press <F5> inside CtrlP to refresh cache
-
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_working_path_mode = 'rw' "begin finding a root from the current working directory
 let g:ctrlp_max_height = 20 " Set the maximum height of the match window:
-let g:ctrlp_regexp = 0 "Set this to 1 to set regexp search as the default: toggle: <c-d>
-let g:ctrlp_by_filename = 0 "set searching by filename (as opposed to full path) toggle <c-r>
+let g:ctrlp_regexp = 0 "Set this to 1 to set regexp search as the default: toggle: <c-r>
+let g:ctrlp_by_filename = 0 "set searching by filename (as opposed to full path) toggle <c-d>
 let g:ctrlp_mruf_relative = 1 "show only MRU files in the current working directory
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\..*$',
@@ -632,20 +642,11 @@ let g:ctrlp_custom_ignore = {
     \ }
     "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
 
-"TODO auto set:
-"* A standalone function to set the working directory to the project's root, or
-"  to the parent directory of the current file if a root can't be found:
-"  function! s:setcwd()
-"    let cph = expand('%:p:h', 1)
-"    if cph =~ '^.\+://' | retu | en
-"    for mkr in ['.git/', '.hg/', '.svn/', '.bzr/', '_darcs/', '.vimprojects']
-"      let wd = call('find'.(mkr =~ '/$' ? 'dir' : 'file'), [mkr, cph.';'])
-"      if wd != '' | let &acd = 0 | brea | en
-"    endfo
-"    exe 'lc!' fnameescape(wd == '' ? cph : substitute(wd, mkr.'$', '.', ''))
-"  endfunction
-"
-"  autocmd BufEnter * call s:setcwd()
+"NOTE: 
+"<C-UP> / <C-DOWN> to switch buff / MRU / files
+"<F5> inside CtrlP to refresh cache
+"<C-D> toggle between path/file search
+"<C-R> toggle between regexp/normal search
 "}}}
 
 
