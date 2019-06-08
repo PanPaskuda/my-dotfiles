@@ -642,6 +642,8 @@ let g:ctrlp_custom_ignore = {
     \ }
     "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
 
+"find visualy selected file or path name using CTRL_P
+vnoremap <C-P> <ESC><Plug>(ctrlp)<C-\>r*
 "NOTE: 
 "<C-UP> / <C-DOWN> to switch buff / MRU / files
 "<F5> inside CtrlP to refresh cache
