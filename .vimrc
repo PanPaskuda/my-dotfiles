@@ -126,11 +126,15 @@ augroup vimrcAutocmds
     "if cursor doesn't move, check whether the current file is up to date
     autocmd CursorHold * checktime
     "treat *.cog files as "c" files
-    autocmd BufRead,BufNewFile *.cog        setfiletype c
-    "local marker for folding 3x"{"
+    autocmd BufRead,BufNewFile *.cog setfiletype c
+    autocmd FileType python     nnoremap <buffer> <localleader>c I#<ESC>
+    autocmd FileType c          nnoremap <buffer> <localleader>c I//<ESC>
+    autocmd FileType vim        nnoremap <buffer> <localleader>c I"<ESC>
+   "local marker for folding 3x"{"
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 "}}}
+"
 
 filetype plugin indent on
 filetype plugin on
@@ -174,6 +178,7 @@ set lazyredraw " Don't redraw while executing macros (good performance config)
 " set path+=** TODO check how it works
 
 let mapleader=","
+let maplocalleader=","
 
 "following special code to ommit gnome terminal restrictions for ALT button
 "let g:enable_on=1
@@ -706,7 +711,7 @@ noremap <silent><F12> :call CreateCscopeDatabase()<CR>
 nnoremap K :call StringTrailingWhiteSpace()<CR>i<CR><ESC>
 nnoremap <CR> A<CR><ESC>
 "alternative saves
-noremap <leader>w :w<CR>
+nnoremap <leader>w :write<CR>
 command! W w
 "highlight a word but do not jump:
 nnoremap <silent> * "syiw<Esc>: let @/ = @s<CR>
@@ -731,6 +736,8 @@ inoremap jk <ESC>
 nnoremap <silent> "" :registers<CR>
 "open in vsplit last buffer
 nnoremap <leader>,bb :execute "rightbelow vsplit " . bufname("#")<CR>
+"jump to help:
+nnoremap <leader>vh :execute "help " . shellescape(expand("<cWORD>")) <cr>
 "}}}
 
 
@@ -760,9 +767,6 @@ nnoremap <Leader>k <Plug>(easymotion-k)
 
 
 "=                       CSCOPE                          = {{{
-"create database for C
-noremap <leader>csa :call CreateCscopeDatabase()<CR>
-
 " find callers:
 noremap <Leader>fc :cscope f c <cword><CR>
 " find callees:
