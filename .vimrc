@@ -22,6 +22,7 @@ runtime! debian.vim
 " + YOU_COMPLETE_ME
 " + MULTIPLE_CURSORS
 " + GIT_GUTTER
+" + QUICK_FIX_WINDOW
 " + ACK
 " + SURROUND
 " + INDENT_GUIDE
@@ -127,9 +128,9 @@ augroup vimrcAutocmds
     autocmd CursorHold * checktime
     "treat *.cog files as "c" files
     autocmd BufRead,BufNewFile *.cog setfiletype c
-    autocmd FileType python     nnoremap <buffer> <localleader>c I#<ESC>
-    autocmd FileType c          nnoremap <buffer> <localleader>c I//<ESC>
-    autocmd FileType vim        nnoremap <buffer> <localleader>c I"<ESC>
+    autocmd FileType python     nnoremap <buffer> <localleader>/ I#<ESC>
+    autocmd FileType c          nnoremap <buffer> <localleader>/ I//<ESC>
+    autocmd FileType vim        nnoremap <buffer> <localleader>/ I"<ESC>
    "local marker for folding 3x"{"
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
@@ -214,7 +215,7 @@ function! CreateWorkspace()
 "5. Prepare flags for YCM
 
 endfunction
-}}}
+"}}}
 
 "===========================================================
 "=                     CLEAN_VIEW                        = {{{
@@ -368,6 +369,29 @@ let g:gitgutter_max_signs = 500  "500 is a default value
 
 
 "=============================================================
+"=                   QUICK_FIX_WINDOW                    = {{{
+"=============================================================
+"NOTE: used by ACK and YCM
+nnoremap <leader>cc :call QuickfixToggle()<CR>
+nnoremap <leader>cn :cnext
+nnoremap <leader>cp :cprevious
+
+let g:quickfix_is_open = 0
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+        execute g:quickfix_return_to_window . "wincmd w"
+    else
+        let g:quickfix_return_to_window = winnr()
+        copen
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+"}}}
+
+
+"=============================================================
 "=                         ACK                           = {{{
 "=============================================================
 let g:ackhighlight = 1 "highlight the searched term
@@ -376,8 +400,9 @@ let g:ackprg = 'ag --nogroup --nocolor --column' "to use silversearecher-ag inst
 "the same effect but will report every match on the line.
 "let g:ackprg = 'ag --vimgrep'
 nnoremap <Leader>fa :Ack! -Q '<cword>'<CR>
-nnoremap <Leader>fA :Ack! -Q '<cWORD>'<CR>
-vnoremap <Leader>fa :<C-U>Ack! -Q '<C-R>*'<CR>
+nnoremap <Leader>fA :execute "Ack! -Q " . shellescape(expand("<cWORD>")) <CR>
+vnoremap <Leader>fa :<C-U>Ack! -Q shellescape(@*) <CR>
+
 "map <Leader>fa exe 'cexpr system("grep -rn --include=\"*.[ch]\" '.expand('<cword>').' . ")'<CR>
 "map <Leader>fa :!grep -rn --include="*.[ch]" <cword> .<CR>
 "default mappings:
@@ -399,6 +424,7 @@ else
     "TODO linux
 endif
 "}}}
+
 
 "=============================================================
 "=                      SURROUND                         = {{{
@@ -741,6 +767,14 @@ nnoremap <leader>vh :execute "help " . shellescape(expand("<cWORD>")) <cr>
 "}}}
 
 
+"=                OPERATOR_PENDING                       = {{{
+"TODO: LVTHW chapter 15
+onoremap p i(
+onoremap q i"
+onoremap s i[
+
+"TODO: map a operator pending to go to nextof space, undersore, minus or next CapitalLetter (but
+"only when a small letter is at the coursor)
 "}}}
 
 
