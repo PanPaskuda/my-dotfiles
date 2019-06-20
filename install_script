@@ -21,6 +21,10 @@ echo doxygen
 sudo apt --assume-yes install doxygen
 echo graphviz for a doxygen
 sudo apt --assume-yes install graphviz
+echo plantUML
+sudo apt --assume-yes install plantUML
+echo wine
+sudo apt --assume-yes install wine
 echo _________________________
 echo install vundle:
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
