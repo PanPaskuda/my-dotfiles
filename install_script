@@ -13,12 +13,18 @@ echo gitk:
 sudo apt --assume-yes install gitk
 echo python3:
 sudo apt --assume-yes install python3
+echo pip for the python3:
+sudo apt --assume-yes install python3-pip
 echo vim:
 sudo apt --assume-yes install vim
 echo silversearcher-ag:
 sudo apt --assume-yes install silversearcher-ag
 echo doxygen
 sudo apt --assume-yes install doxygen
+echo lcov for a doxygen comments coverage
+sudo apt --assume-yes install lcov
+echo coverxygen for a doxygen comments coverage
+pip3 install coverxygen
 echo graphviz for a doxygen
 sudo apt --assume-yes install graphviz
 echo plantUML
