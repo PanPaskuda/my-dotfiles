@@ -35,12 +35,15 @@ runtime! debian.vim
 " + CTRL_P
 " + SILVER_SERCHER
 " + EASY_MOTION
+" + VIM_DEVICONS
+
 " SHORT_KEYS_MAPPING:
 " + ARROW_KEYS
 " + F1_F12
 " + GENERAL_MAPPING
 " + OPERATOR_PENDING
 " + EASY_MOTION
+" + MARK_KARKAT
 " + CSCOPE
 " + YOU_COMPLETE_ME
 " + MULTIPLE_CURSORS
@@ -106,6 +109,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'easymotion/vim-easymotion'
 "to check:
 "Plugin 'Raimondi/delimitMate' provides automatic closing of quotes, parenthesis, brackets, etc.
+Plugin 'ryanoasis/vim-devicons' "DevIcons has to be very last plugin for work
 
 call vundle#end()
 "}}}
@@ -131,6 +135,7 @@ augroup vimrcAutocmds
     autocmd FileType python     nnoremap <buffer> <localleader>/ I#<ESC>
     autocmd FileType c          nnoremap <buffer> <localleader>/ I//<ESC>
     autocmd FileType vim        nnoremap <buffer> <localleader>/ I"<ESC>
+    autocmd FileType sh         nnoremap <buffer> <localleader>/ I#<ESC>
    "local marker for folding 3x"{"
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
@@ -175,6 +180,7 @@ set noswapfile "disable creation swap files
 set whichwrap=<,>,h,l "wrap to next lines for arrows and h,l
 set visualbell "make a short visual flash instead of an error beep
 set lazyredraw " Don't redraw while executing macros (good performance config)
+set t_Co=256 "set terminal vim to 256 colors
 
 " set path+=** TODO check how it works
 
@@ -222,7 +228,9 @@ endfunction
 "===========================================================
 function! CleanViewEnable()
     set nospell
-    IndentGuidesDisable
+    if exists('g:loaded_indent_guides')
+        IndentGuidesDisable
+    endif
     set list listchars=tab:>-
     set nocursorline
     set nornu
@@ -231,7 +239,9 @@ endfunction
 
 function! CleanViewDisable()
     set spell
-    IndentGuidesEnable
+    if exists('g:loaded_indent_guides')
+        IndentGuidesEnable
+    endif
     set list listchars=tab:>-,trail:~,extends:>,precedes:<,nbsp:o,space:·
     set cursorline
     set rnu
@@ -273,11 +283,9 @@ if has("cscope")
     set nocscopeverbose
     "add any database in current directory
     if filereadable("cscope.out")
-        echo "Adding user cscope db"
         cscope add cscope.out
     "else add database pointed to by environment
     elseif $CSCOPE_DB != ""
-        echo "Adding default cscope db"
         cscope add $CSCOPE_DB
     endif
 set cscopeverbose
@@ -582,7 +590,12 @@ highlight NERDTreeDir guibg=#002b36 guifg=#268bd2
 match ExtraWhitespace /[\t]\|\s\+$\| \+\ze\t/
 
 "NOTE: weird bahaviour after settings a guifont: resize of the gvim window
-"set guifont=Consolas "set fonts for gVim: 0Oo, |1lIiL
+"set font for GUI VIM: 0Oo !|1lIiL g9q
+if has("win32")
+    set guifont=Consolas:h11
+else
+    set guifont=UbuntuMono\ Nerd\ Font\ 11
+endif
 
 
 
@@ -677,7 +690,8 @@ let g:ctrlp_custom_ignore = {
 
 "find visualy selected file or path name using CTRL_P
 vnoremap <C-P> <ESC><Plug>(ctrlp)<C-\>r*
-"NOTE: 
+noremap <C-P> :CtrlP<CR>
+"NOTE:
 "<C-UP> / <C-DOWN> to switch buff / MRU / files
 "<F5> inside CtrlP to refresh cache
 "<C-D> toggle between path/file search
@@ -701,9 +715,16 @@ let g:EasyMotion_smartcase = 1 " Turn on case insensitive feature
 
 
 "=============================================================
+"=                     VIM_DEVICONS                      = {{{
+"=============================================================
+let g:airline_powerline_fonts = 1 "
+"}}}
+
+"=============================================================
 "=                  SHORT_KEYS_MAPPING                       =
 "=============================================================
 "=                    ARROW_KEYS                         = {{{
+"
 "NOTE: can by added by plugin: wikitopian/hardmode
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -733,9 +754,12 @@ noremap <silent><F12> :call CreateCscopeDatabase()<CR>
 
 
 "=                      GENERAL_MAPPING                  = {{{
+"
 "put enter and strip in previous line all spaces till the nearest non space
-nnoremap K :call StringTrailingWhiteSpace()<CR>i<CR><ESC>
+nnoremap <S-K> :call StringTrailingWhiteSpace()<CR>i<CR><ESC>
+"nnoremap <C-K> :call StringTrailingWhiteSpace()<CR>DkA<CR><ESC>p
 nnoremap <CR> A<CR><ESC>
+nnoremap <S-CR> kA<CR><ESC>
 "alternative saves
 nnoremap <leader>w :write<CR>
 command! W w
@@ -749,6 +773,7 @@ nnoremap / /\v
 nnoremap ? ?\v
 "enable/disable spell checking
 nnoremap <leader>s z=
+
 "let <C-U> and <C-W> be able to undo
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
@@ -799,6 +824,33 @@ nnoremap <Leader>k <Plug>(easymotion-k)
 "nnoremap <Leader>s <Plug>(easymotion-s)
 "}}}
 
+"=                    MARK_KARKAT                        = {{{
+"NOTE: default mappings from plugin:
+"nnoremap <Leader>m <Plug>MarkSet
+"vnoremap <Leader>m <Plug>MarkSet
+"nnoremap <Leader>r <Plug>MarkRegex
+"vnoremap <Leader>r <Plug>MarkRegex
+"nnoremap <Leader>n <Plug>MarkClear
+"nnoremap <Leader>* <Plug>MarkSearchCurrentNext
+"nnoremap <Leader># <Plug>MarkSearchCurrentPrev
+"nnoremap * <Plug>MarkSearchNext
+"nnoremap # <Plug>MarkSearchPrev
+"" No default mapping for <Plug>MarkAllClear
+"" No default mapping for <Plug>MarkToggle
+
+"NOTE: mapping is to avoid error from plugin
+nnoremap <Leader>NNNNNNCN <Plug>MarkSearchCurrentNext
+nnoremap <Leader>NNNNNNCP <Plug>MarkSearchCurrentPrev
+nnoremap <Leader>NNNNNNC <Plug>MarkClear
+nnoremap <Leader>NNNNNNN <Plug>MarkSearchNext
+nnoremap <Leader>NNNNNNP <Plug>MarkSearchPrev
+
+"NOTE: custom mapping
+nnoremap <Leader>n <Plug>MarkToggle
+nnoremap <Leader>nt <Plug>MarkToggle
+nnoremap <Leader>* <Plug>MarkSearchAnyNext
+nnoremap <Leader># <Plug>MarkSearchAnyPrev
+""}}}
 
 "=                       CSCOPE                          = {{{
 " find callers:
@@ -854,8 +906,8 @@ nnoremap <silent> <leader> yg :YcmCompleter GoTo <CR>
 nnoremap <silent> <Leader>i :TlistToggle<CR>
 nnoremap <silent> <Leader>j :NextError<CR>
 nnoremap <silent> <Leader>k :PrevError<CR>
-nnoremap <silent> <Leader>h :OlderError<CR>
-nnoremap <silent> <Leader>l :NewerError<CR>
+"nnoremap <silent> <Leader>h :OlderError<CR>
+"nnoremap <silent> <Leader>l :NewerError<CR>
 nnoremap <silent> <Leader>yf :YcmCompleter FixIt<CR>
 nnoremap <silent> <Leader>yr :YcmRestartServer<CR>
 nnoremap <silent> <Leader>yc :YcmForceCompileAndDiagnostics<CR>
@@ -920,8 +972,6 @@ vnoremap  <expr>  <S-UP>     DVB_Drag('up')
 
 
 "=                         TABS                          = {{{
-"TODO obsolete 'create new tab' mapping to delete in the future
-nnoremap <leader>tcr :echo "use <leader>tn instead (leader Tab Next)"<CR>
 "create new tab
 nnoremap <leader>tn :tabnew<CR>
 "close tab
@@ -930,8 +980,16 @@ nnoremap <leader>tc :tabclose<CR>
 nnoremap <leader>tm :tabmove<CR>
 "first tab
 nnoremap <leader>tf :tabfirst<CR>
+"previous tab
+nnoremap <leader>h :tabfirst<CR>
+nnoremap <leader>th :tabfirst<CR>
+"next tab
+nnoremap <leader>l :tabNext<CR>
+nnoremap <leader>tl :tabNext<CR>
+"}}}
 
 
+"=               TO MOVE OR  DELETE                      = {{{
 "shift lines using alt+jk (in all modes)
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
@@ -978,15 +1036,6 @@ nnoremap <A-l> $
 vnoremap <A-h> ^
 vnoremap <A-l> $
 
-"set buffer for copy/paste
-noremap <A-a> "a
-noremap <A-b> "b
-noremap <A-c> "c
-
-
-
-
-
 
 "modify the status line
 set statusline=%t\ %{FugitiveStatusline()}\ FileType:\ %y\ FileEncoding:\ %{&fenc}%=%P\ 0x%02B\ %3c
@@ -998,4 +1047,5 @@ set laststatus=2
 "that mouse doesn't work
 "TODO//set termencoding=latin1
 
+"}}}
 
