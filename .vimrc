@@ -166,7 +166,8 @@ set autoread "automatically read changed file again.
 set cmdheight=2 " Height of the command bar
 set updatetime=100 "100ms time of upadating i.e. gitgutter signs
 set nrformats-=octal
-set guioptions=aegimrLtTc "default + 'c' for block gui popups
+set clipboard+=unnamed "yank and paste from clipboard as a default (use y instead of "*y ).
+set guioptions=aegimrLtc "default + 'c' to block gui popups, - 'T' to disable toolbar
 set spl=en spell "set spell checking to English
 set expandtab "remove tab to spaces
 set tabstop=4 "tab set to 4 spaces
