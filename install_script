@@ -15,10 +15,31 @@ echo python3:
 sudo apt --assume-yes install python3
 echo pip for the python3:
 sudo apt --assume-yes install python3-pip
-echo vim:
-sudo apt --assume-yes install vim
-echo silversearcher-ag:
-sudo apt --assume-yes install silversearcher-ag
+
+echo _________________________
+echo installing environment and tools:
+echo regolith i3 tiling windows manager:
+sudo add-apt-repository -y ppa:kgilmer/regolith-stable
+sudo apt --assume-yes install regolith-desktop
+echo tldr:
+sudo apt --assume-yes install tldr
+echo htop:
+sudo apt --assume-yes install htop
+echo ranger:
+sudo apt --assume-yes install ranger
+
+
+# shell like stuff
+echo zsh:
+sudo apt --assume-yes install zsh
+echo oh-my-zsh:
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+echo PowerLevel9k plugin for zsh:
+git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+#set zsh as default shell
+chsh -s $(which zsh)
+
+#documentation like stuff
 echo doxygen
 sudo apt --assume-yes install doxygen
 echo lcov for a doxygen comments coverage
@@ -29,30 +50,19 @@ echo graphviz for a doxygen
 sudo apt --assume-yes install graphviz
 echo plantUML
 sudo apt --assume-yes install plantUML
+
+#install compilers and compile a vim plugin
+echo _________________________
 echo wine
 sudo apt --assume-yes install wine
-echo _________________________
-echo install vundle:
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-echo _________________________
-echo open vim, update all plugins and quit vim:
-sleep 1
-vim -c BundleUpdate -c q -c q
-
 echo _________________________
 echo install cmake
 sudo apt --assume-yes install build-essential cmake python3-dev
 echo install clang
 cd ~/.vim/bundle/YouCompleteMe
 python3 install.py --clang-completer
-
 echo _________________________
-echo install Excuberant tags:
-sudo apt --assume-yes install exuberant-ctags
-
-echo _________________________
-echo install Bear
+echo install Bear for YCM and vim
 git clone https://github.com/rizsotto/Bear.git ~/Bear_Source_Tmp/
 cd ~/Bear_Source_Tmp
 cmake ~/Bear_Source_Tmp
@@ -62,10 +72,26 @@ make check
 sudo make package
 sudo rm -rdf ~/Bear_Source_Tmp/
 
+
+# VIM like stuff
+echo vim:
+sudo apt --assume-yes install vim
+echo silversearcher-ag search engine for vim
+sudo apt --assume-yes install silversearcher-ag
+echo install vundle a plugin manager for vim
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+echo _________________________
+echo install Excuberant tags:
+sudo apt --assume-yes install exuberant-ctags
 echo _________________________
 echo create backup and swap directory for vim
 mkdir -p ~/.vim/backup
 mkdir -p ~/.vim/swap
+echo _________________________
+echo open vim, update all plugins and quit vim:
+sleep 1
+vim -c BundleUpdate -c q -c q
+
 
 echo
 echo
