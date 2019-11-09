@@ -4,21 +4,23 @@
 
 To use this configuration run:
 ```sh
-alias config='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'
+alias dotrepo='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'
 git clone --bare git@github.com:PanPaskuda/my-dotfiles.git $HOME/.dotrepo
+detrepo config --local status.showUntrackedFiles no
 dotrepo checkout
 ```
 
 to write alias to bashrc run:
 ```sh
-echo "alias config='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'" >> $HOME/.dotrepo
+echo "alias dotrepo='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'" >> $HOME/.bashrc
 ```
 
 
 Alternatively for HTTP access run:
 ```sh
-alias config='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'
+alias dotrepo='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'
 git clone --bare https://github.com/PanPaskuda/my-dotfiles.git $HOME/.dotrepo
+detrepo config --local status.showUntrackedFiles no
 dotrepo checkout
 ```
 
@@ -28,6 +30,8 @@ dotfiles repo strategy based on the idea [described here](https://www.atlassian.
 <br>
 
 ## TODO:
++ auto install Nerd Font, and this repo
+
 + add windows .bat version of scripts
 + add support for windows in vimrc
 

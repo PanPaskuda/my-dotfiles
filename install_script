@@ -15,6 +15,13 @@ echo python3:
 sudo apt --assume-yes install python3
 echo pip for the python3:
 sudo apt --assume-yes install python3-pip
+echo curl:
+sudo apt --assume-yes install curl
+echo wine
+sudo apt --assume-yes install wine-stable
+echo install cmake & build essental packages for debian and python
+sudo apt --assume-yes install build-essential cmake python3-dev
+
 
 echo _________________________
 echo installing environment and tools:
@@ -27,19 +34,12 @@ echo htop:
 sudo apt --assume-yes install htop
 echo ranger:
 sudo apt --assume-yes install ranger
-
-
-# shell like stuff
 echo zsh:
 sudo apt --assume-yes install zsh
-echo oh-my-zsh:
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
-echo PowerLevel9k plugin for zsh:
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-#set zsh as default shell
-chsh -s $(which zsh)
 
-#documentation like stuff
+
+echo _________________________
+echo documentation like stuff:
 echo doxygen
 sudo apt --assume-yes install doxygen
 echo lcov for a doxygen comments coverage
@@ -49,20 +49,49 @@ pip3 install coverxygen
 echo graphviz for a doxygen
 sudo apt --assume-yes install graphviz
 echo plantUML
-sudo apt --assume-yes install plantUML
+sudo apt --assume-yes install plantuml
 
-#install compilers and compile a vim plugin
+
+# shell like stuff
+echo oh-my-zsh:
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+echo PowerLevel9k plugin for zsh:
+git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+
+
+
 echo _________________________
-echo wine
-sudo apt --assume-yes install wine
+echo vim
+sudo apt --assume-yes install vim
+sudo apt --assume-yes install vim-gtk3
+echo silversearcher-ag search engine for vim
+sudo apt --assume-yes install silversearcher-ag
+echo install Excuberant tags:
+sudo apt --assume-yes install exuberant-ctags
+
+
+
+
+
+# VIM like stuff
 echo _________________________
-echo install cmake
-sudo apt --assume-yes install build-essential cmake python3-dev
-echo install clang
+echo install vim plugins
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+echo create backup and swap directory for vim
+mkdir -p ~/.vim/backup
+mkdir -p ~/.vim/swap
+echo _________________________
+echo open vim, update all plugins and quit vim:
+sleep 1
+vim -c BundleUpdate -c q -c q
+
+#install You Complete Me the Vim plugin
+echo _________________________
+echo install clang-completer for YCM
 cd ~/.vim/bundle/YouCompleteMe
 python3 install.py --clang-completer
-echo _________________________
-echo install Bear for YCM and vim
+
+echo compile and install Bear for YCM and vim
 git clone https://github.com/rizsotto/Bear.git ~/Bear_Source_Tmp/
 cd ~/Bear_Source_Tmp
 cmake ~/Bear_Source_Tmp
@@ -73,26 +102,9 @@ sudo make package
 sudo rm -rdf ~/Bear_Source_Tmp/
 
 
-# VIM like stuff
-echo vim:
-sudo apt --assume-yes install vim
-echo silversearcher-ag search engine for vim
-sudo apt --assume-yes install silversearcher-ag
-echo install vundle a plugin manager for vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo _________________________
-echo install Excuberant tags:
-sudo apt --assume-yes install exuberant-ctags
-echo _________________________
-echo create backup and swap directory for vim
-mkdir -p ~/.vim/backup
-mkdir -p ~/.vim/swap
-echo _________________________
-echo open vim, update all plugins and quit vim:
-sleep 1
-vim -c BundleUpdate -c q -c q
-
-
+echo set zsh as default shell
+chsh -s $(which zsh)
 echo
 echo
 echo ___________________________________________
