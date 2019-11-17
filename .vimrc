@@ -43,6 +43,7 @@ runtime! debian.vim
 " + GENERAL_MAPPING
 " + OPERATOR_PENDING
 " + EASY_MOTION
+" + DELIMIT_MATE
 " + MARK_KARKAT
 " + CSCOPE
 " + YOU_COMPLETE_ME
@@ -80,8 +81,7 @@ call vundle#begin()
 "Bundle 'gmarik/vundle'
 Plugin 'VundleVim/Vundle.vim'
 "My Bundles:
-"grep alternative used with silversearcher"
-Plugin 'mileszs/ack.vim'
+Plugin 'mileszs/ack.vim' "grep alternative used with silversearcher
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
@@ -92,7 +92,6 @@ else
 endif
 Plugin 'vim-airline/vim-airline'
 Plugin 'nathanaelkane/vim-indent-guides'
-"TODO needed? Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mbbill/undotree'
 Plugin 'altercation/vim-colors-solarized'
 "ADD: Plugin 'scrooloose/nerdcommenter'
@@ -107,9 +106,9 @@ Plugin 'vim-scripts/Mark--Karkat'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-fugitive'
 Plugin 'easymotion/vim-easymotion'
-"to check:
-"Plugin 'Raimondi/delimitMate' provides automatic closing of quotes, parenthesis, brackets, etc.
-Plugin 'ryanoasis/vim-devicons' "DevIcons has to be very last plugin for work
+Plugin 'Raimondi/delimitMate' "provides automatic closing of quotes, parenthesis, brackets, etc.
+"DevIcons has to be load as he very last plugin
+Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()
 "}}}
@@ -462,7 +461,6 @@ let g:indent_guides_tab_guides = 1
 "=============================================================
 "=                       UNDO_TREE                       = {{{
 "=============================================================
-let g:loaded_undotree = 1 "widow style
 if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
@@ -595,7 +593,7 @@ match ExtraWhitespace /[\t]\|\s\+$\| \+\ze\t/
 if has("win32")
     set guifont=Consolas:h11
 else
-    set guifont=UbuntuMono\ Nerd\ Font\ 11
+    set guifont=CodeNewRoman\ Nerd\ Font\ 11,\ UbuntuMono\ Nerd\ Font\ 11
 endif
 
 
@@ -712,6 +710,14 @@ noremap <C-P> :CtrlP<CR>
 "=============================================================
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1 " Turn on case insensitive feature
+"}}}
+
+
+"=============================================================
+"=                     DELIMIT_MATE                       = {{{
+"=============================================================
+let delimitMate_expand_cr = 1 "This option turns on/off the expansion of <CR>.
+let delimitMate_expand_space = 1 "This option turns on/off the expansion of <Space>.
 "}}}
 
 
