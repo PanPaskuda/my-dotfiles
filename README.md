@@ -6,7 +6,7 @@ To use this configuration run:
 ```sh
 alias dotrepo='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'
 git clone --bare git@github.com:PanPaskuda/my-dotfiles.git $HOME/.dotrepo
-detrepo config --local status.showUntrackedFiles no
+dotrepo config --local status.showUntrackedFiles no
 dotrepo checkout
 ```
 
@@ -30,7 +30,7 @@ dotfiles repo strategy based on the idea [described here](https://www.atlassian.
 <br>
 
 ## TODO:
-+ auto install Nerd Font, and this repo
++ auto install  this repo
 
 + add windows .bat version of scripts
 + add support for windows in vimrc
