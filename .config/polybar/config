@@ -86,11 +86,14 @@ module-margin-left = 1
 module-margin-right = 2
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
-font-0 = "UbuntuMono Nerd Font:size=10;2"
-font-1 = "UbuntuMono Nerd Font:size=16;3"
+font-0 = "CodeNewRoman Nerd Font:size=10;2"
+font-1 = "UbuntuMono Nerd Font:size=10;2"
 font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=8;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=8;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=8;1"
+font-5 = fixed:pixelsize=10;1
+font-6 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-7 = siji:pixelsize=10;1
 
 modules-left = i3 xwindow2
 modules-center = 
@@ -163,8 +166,8 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = "UbuntuMono Nerd Font:size=10;2"
-font-1 = "UbuntuMono Nerd Font:size=16;3"
+font-0 = "CodeNewRoman Nerd Font:size=10;2"
+font-1 = "UbuntuMono Nerd Font:size=10;2"
 font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=8;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=8;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=8;1"
