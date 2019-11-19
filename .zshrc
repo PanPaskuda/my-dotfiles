@@ -62,6 +62,8 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
@@ -80,6 +82,15 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
