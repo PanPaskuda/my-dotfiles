@@ -131,6 +131,7 @@ augroup vimrcAutocmds
     autocmd CursorHold * checktime
     "treat *.cog files as "c" files
     autocmd BufRead,BufNewFile *.cog setfiletype c
+    autocmd BufRead,BufNewFile *.h setfiletype c
     autocmd FileType python     nnoremap <buffer> <localleader>/ I#<ESC>
     autocmd FileType c          nnoremap <buffer> <localleader>/ I//<ESC>
     autocmd FileType vim        nnoremap <buffer> <localleader>/ I"<ESC>
@@ -748,11 +749,12 @@ inoremap <F4> <ESC>:NERDTreeToggle<CR>
 noremap <F4> :NERDTreeToggle<CR>
 noremap <F5> :call CleanViewToggle()<CR>
 noremap <F6> :set cursorline!<CR>
+noremap <silent> <F7> :<C-U>call StringTrailingWhiteSpace()<CR>
 noremap <silent> <F8> :<C-U>call TabsSpacesToggle()<CR>
 noremap <silent> <F8> :<C-U>call TabsSpacesToggle()<CR>
 noremap <silent> <F9> :<C-U>call VimDiffToggle()<CR>
 noremap <silent> <F10> :<C-U>call SplitToggle()<CR>
-noremap <S-F11> :YcmRestartServer <CR>
+noremap <S-F11> :make clean<CR> :!bear make <CR> :YcmRestartServer <CR>
 noremap <F11> :YcmForceCompileAndDiagnostics<CR>:YcmDiag<CR>
 "map <F12> :call CreateTags()<CR>
 noremap <silent><F12> :call CreateCscopeDatabase()<CR>
@@ -771,6 +773,7 @@ nnoremap <S-CR> kA<CR><ESC>
 nnoremap <leader>w :write<CR>
 command! W w
 "highlight a word but do not jump:
+nnoremap <silent> # "syiW<Esc>: let @/ = @s<CR>
 nnoremap <silent> * "syiw<Esc>: let @/ = @s<CR>
 "center a view at the search occurrence
 nnoremap n nzz
