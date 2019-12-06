@@ -91,6 +91,8 @@ export KEYTIMEOUT=1
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+#make autosuggest visible in solarized theme
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

@@ -45,6 +45,8 @@ echo ranger:
 sudo apt --assume-yes install ranger
 echo zsh:
 sudo apt --assume-yes install zsh
+echo thunderbird:
+sudo apt --assume-yes install thunderbird
 
 #documentation like stuff
 
