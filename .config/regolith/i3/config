@@ -81,6 +81,12 @@ bindsym $mod+space exec rofi -show drun -theme $rofiTheme
 bindsym $mod+Shift+space exec rofi -show run -theme $rofiTheme
 bindsym $mod+Ctrl+space exec rofi -show window -theme $rofiTheme
 
+# i3 move a workspace to another monitor
+bindsym $mod+Ctrl+h move workspace to output left
+bindsym $mod+Ctrl+j move workspace to output down
+bindsym $mod+Ctrl+k move workspace to output up
+bindsym $mod+Ctrl+l move workspace to output right
+
 # change focus
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -124,6 +130,14 @@ bindsym $mod+Shift+t focus mode_toggle
 
 # toggle tabbed mode
 bindsym $mod+t layout toggle tabbed splith splitv
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+#move between monitors
+
 
 # move to workspace
 bindsym $mod+1 workspace $ws1
@@ -232,20 +246,20 @@ mode "Resize Mode" {
         bindsym Up resize shrink height 6 px or 6 ppt
         bindsym Right resize grow width 6 px or 6 ppt
 
-        bindsym Shift+Left resize shrink width 12 px or 12 ppt
-        bindsym Shift+Down resize grow height 12 px or 12 ppt
-        bindsym Shift+Up resize shrink height 12 px or 12 ppt
-        bindsym Shift+Right resize grow width 12 px or 12 ppt
+        bindsym Shift+Left resize shrink width 24 px or 24 ppt
+        bindsym Shift+Down resize grow height 24 px or 24 ppt
+        bindsym Shift+Up resize shrink height 24 px or 24 ppt
+        bindsym Shift+Right resize grow width 24 px or 24 ppt
 
         bindsym h resize shrink width 6 px or 6 ppt
         bindsym k resize grow height 6 px or 6 ppt
         bindsym j resize shrink height 6 px or 6 ppt
         bindsym l resize grow width 6 px or 6 ppt
 
-        bindsym Shift+h resize shrink width 12 px or 12 ppt
-        bindsym Shift+k resize grow height 12 px or 12 ppt
-        bindsym Shift+j resize shrink height 12 px or 12 ppt
-        bindsym Shift+l resize grow width 12 px or 12 ppt
+        bindsym Shift+h resize shrink width 24 px or 24 ppt
+        bindsym Shift+k resize grow height 24 px or 24 ppt
+        bindsym Shift+j resize shrink height 24 px or 24 ppt
+        bindsym Shift+l resize grow width 24 px or 24 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -353,6 +367,12 @@ bar {
 
 
 #assign programs to specific workspaces
+#use xprop to detect class and so on
+assign [class="Thunderbird"] $ws2
+assign [class="Signal"] $ws2
+assign [class="Firefox"] $ws3
+#remote desktop viewer:
+assign [class="Vinagre"] $ws4
 assign [class="TeamViewer"] $ws9
 assign [class="keepassxc" window_type="normal"] $ws9
 
