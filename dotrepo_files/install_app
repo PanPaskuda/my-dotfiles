@@ -47,7 +47,8 @@ echo zsh:
 sudo apt --assume-yes install zsh
 echo thunderbird:
 sudo apt --assume-yes install thunderbird
-
+echo tree:
+sudo apt --assume-yes install tree
 #documentation like stuff
 
 echo _________________________
@@ -66,9 +67,10 @@ sudo apt --assume-yes install plantuml
 #Vim & CO
 
 echo _________________________
-echo vim
+echo vim & neovim
 sudo apt --assume-yes install vim
 sudo apt --assume-yes install vim-gtk3
+sudo apt --assume-yes install neovim
 echo silversearcher-ag search engine for vim
 sudo apt --assume-yes install silversearcher-ag
 echo install Excuberant tags:

@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# this script allows you to keep .gitconfig file clean and managed (indirectly) by your repo, but
+# with a untracked [user] section.
+
+# To update .gitconfig to the actual repo status just run this script and choose a proper option to
+# keep user the right user config.
+
+#find real script directory
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+CONFIG_FILE="$HOME/.gitconfig"
+TEMPLATE_FILE="$DIR/dot_gitconfig"
+
+
+load_config(){
+    echo "copy from $TEMPLATE_FILE to $CONFIG_FILE"
+    cat  $TEMPLATE_FILE > $CONFIG_FILE || echo "error @ load_config()"
+}
+
+
+delete_user() {
+    sed -i "/^\s*email/d; /^\s*name/d; /^\s*\[user]\s*$/d" $CONFIG_FILE || echo "error @ delete_user()"
+}
+
+
+ACTUAL_EMAIL="$(git config --get user.email)"
+ACTUAL_NAME="$(git config --get user.name)"
+append_actual_user_data(){
+    git config --global user.email "$ACTUAL_EMAIL"
+    git config --global user.name "$ACTUAL_NAME"
+}
+
+
+PRIVATE_EMAIL="22117604+PanPaskuda@users.noreply.github.com"
+PRIVATE_NAME="PanPaskuda"
+append_private_user_data(){
+    echo "this will override your actual setting:"
+    read -r -p "<press enter to ok>" tmp
+    git config --global user.email "$PRIVATE_EMAIL"
+    git config --global user.name "$PRIVATE_NAME"
+}
+
+
+append_new_user_data(){
+    echo "this will override your actual setting:"
+    read -r -p "write your new name:" name
+    git config --global user.name "$name"
+    read -r -p "write your new email:" mail
+    git config --global user.email "$mail"
+}
+
+#main of the script
+echo ""
+echo "____________________"
+echo "this script will update your gitconfig config"
+echo "ABORT script if you wanted to save your setting first!"
+echo ""
+read -r -p "<press enter to ok>" tmp
+
+delete_user
+load_config
+
+echo ""
+echo "your actual user is: $ACTUAL_NAME $ACTUAL_EMAIL"
+echo "install settings for a:"
+select yn in "Actual" "Private" "New"; do
+    case $yn in
+        Actual ) append_actual_user_data; break;;
+        Private ) append_private_user_data; break;;
+        New ) append_new_user_data; break;;
+    esac
+done
+
+echo ""
+echo "config updated successfully"
+
+
+
