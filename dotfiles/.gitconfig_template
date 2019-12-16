@@ -5,12 +5,13 @@
 [interactive]
     diffFilter = $HOME/.cargo/bin/diffr --colors refine-added:none:background:0x33,0x70,0x00:bold --colors added:none:background:0x33,0x55,0x33 --colors refine-removed:none:background:0x99,0x33,0x33:bold --colors removed:none:background:0x55,0x33,0x33
 [alias]
-    s = status --short
-    l = log --oneline -10
+    ss = status --short
+    s = status --show-stash
+    l = log --oneline --graph -15
     b = branch --all --verbose --verbose
     f = fetch
     p = push origin HEAD:refs/for/develop
-    comma = commit --amend -p
+    c = commit --amend -p
 
 
 

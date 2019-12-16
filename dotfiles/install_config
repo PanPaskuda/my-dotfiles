@@ -9,7 +9,12 @@
 #find real script directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 CONFIG_FILE="$HOME/.gitconfig"
-TEMPLATE_FILE="$DIR/dot_gitconfig"
+TEMPLATE_FILE="$DIR/.gitconfig_template"
+
+
+update_template(){
+    cat  $CONFIG_FILE > $TEMPLATE_FILE
+}
 
 
 load_config(){
@@ -19,7 +24,8 @@ load_config(){
 
 
 delete_user() {
-    sed -i "/^\s*email/d; /^\s*name/d; /^\s*\[user]\s*$/d" $CONFIG_FILE || echo "error @ delete_user()"
+    #be sure there is no user data in template
+    sed -i "/^\s*email/d; /^\s*name/d; /^\s*\[user]\s*$/d" $TEMPLATE_FILE || echo "error @ delete_user()"
 }
 
 
@@ -49,25 +55,39 @@ append_new_user_data(){
     git config --global user.email "$mail"
 }
 
+
 #main of the script
 echo ""
 echo "____________________"
 echo "this script will update your gitconfig config"
+echo "(or alternatively update the repo template)"
 echo "ABORT script if you wanted to save your setting first!"
 echo ""
 read -r -p "<press enter to ok>" tmp
 
-delete_user
-load_config
-
 echo ""
 echo "your actual user is: $ACTUAL_NAME $ACTUAL_EMAIL"
 echo "install settings for a:"
-select yn in "Actual" "Private" "New"; do
-    case $yn in
+
+select option in "Actual" "Private" "New" "Update_template"; do
+
+if [ $option == 'Update_template' ]
+then
+    update_template
+    delete_user
+    echo ""
+    echo "template updated successfully"
+    exit
+fi
+
+delete_user
+load_config
+
+    case $option in
         Actual ) append_actual_user_data; break;;
         Private ) append_private_user_data; break;;
         New ) append_new_user_data; break;;
+        Update_template ) echo "THIS WILL NEVER HAPPEN"; exit;;
     esac
 done
 
