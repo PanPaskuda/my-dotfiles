@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#find real script directory
+#DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DOTREPO_DIR=$HOME/.dotrepo
+
+
+check_git() {
+    command -v git >/dev/null 2>&1 || ( echo -e "rly? No git here?\n"; sudo apt --assume-yes install git)
+}
+
+create_alias(){
+    unalias dotrepo 2>/dev/null
+    alias dotrepo='$(which git) --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'
+}
+
+clone_using_https(){
+    git clone --bare https://github.com/PanPaskuda/my-dotfiles.git $DOTREPO_DIR
+}
+
+
+clone_using_ssh(){
+    git clone --bare git@github.com:PanPaskuda/my-dotfiles.git $DOTREPO_DIR
+}
+
+setup_repo(){
+    dotrepo config --local status.showUntrackedFiles no
+    dotrepo checkout
+}
+
+#main of this script
+echo ""
+echo "_________________________"
+echo "This script will automagically install your home dotrepo in $HOME"
+
+check_git
+create_alias
+
+echo "install settings using:"
+select option in "HTTPS" "SSH"; do
+    case $option in
+        HTTPS ) clone_using_https; break;;
+        SSH ) clone_using_ssh; break;;
+    esac
+done
+setup_repo
+exit
+
+
+

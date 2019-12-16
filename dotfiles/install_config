@@ -4,7 +4,7 @@
 # with a untracked [user] section.
 
 # To update .gitconfig to the actual repo status just run this script and choose a proper option to
-# keep user the right user config.
+# keep the right user config.
 
 #find real script directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
