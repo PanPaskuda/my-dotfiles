@@ -35,6 +35,7 @@ runtime! debian.vim
 " + CTRL_P
 " + SILVER_SERCHER
 " + EASY_MOTION
+" + CTRL_SF
 " + VIM_DEVICONS
 
 " SHORT_KEYS_MAPPING:
@@ -43,6 +44,7 @@ runtime! debian.vim
 " + GENERAL_MAPPING
 " + OPERATOR_PENDING
 " + EASY_MOTION
+" + CTRL_SF
 " + DELIMIT_MATE
 " + MARK_KARKAT
 " + CSCOPE
@@ -107,6 +109,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-fugitive'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'Raimondi/delimitMate' "provides automatic closing of quotes, parenthesis, brackets, etc.
+Plugin 'dyng/ctrlsf.vim' "An ack powered code search and view tool lets you edit file in-place
 "DevIcons has to be load as he very last plugin
 Plugin 'ryanoasis/vim-devicons'
 
@@ -715,7 +718,20 @@ let g:EasyMotion_smartcase = 1 " Turn on case insensitive feature
 
 
 "=============================================================
-"=                     DELIMIT_MATE                       = {{{
+"=                        CTRL_SF                        = {{{
+"=============================================================
+let g:ctrlsf_default_root = 'cwd'
+let g:ctrlsf_search_mode = 'async'
+"let g:ctrlsf_default_view_mode = 'compact'
+"let g:ctrlsf_populate_qflist = 1
+"let g:ctrlsf_regex_pattern = 1
+"let g:ctrlsf_position = 'bottom'
+"let g:ctrlsf_winsize = '30%' "use % or absolute value i.e 30% or 100
+"}}}
+
+
+"=============================================================
+"=                     DELIMIT_MATE                      = {{{
 "=============================================================
 let delimitMate_expand_cr = 1 "This option turns on/off the expansion of <CR>.
 let delimitMate_expand_space = 1 "This option turns on/off the expansion of <Space>.
@@ -833,6 +849,28 @@ nnoremap <Leader>k <Plug>(easymotion-k)
 "nnoremap <Leader>N <Plug>(easymotion-N)
 "nnoremap <Leader>s <Plug>(easymotion-s)
 "}}}
+
+
+"=                       CTRL_SF                         = {{{
+"most hotkeys can not be 'noremap':
+"execute cword/cWORD/VSELECT search:
+nmap <C-F>a <Plug>CtrlSFCwordPath <CR>
+nmap <C-F><C-A> :execute "CtrlSF " . shellescape(expand("<cWORD>")) <CR>
+vmap <C-F>a <Plug>CtrlSFVwordExec
+
+"start prompting only
+nmap <C-F> <Plug>CtrlSFPrompt
+vmap <C-F> <Plug>CtrlSFVwordPath
+
+"find a previous search pattern TODO: delete \v (verymagic sign) from search
+nmap <C-F>/ <Plug>CtrlSFPwordPath
+
+"Open/close CtrlSF window
+nnoremap <C-F><C-F> :CtrlSFToggle<CR>
+inoremap <C-F><C-F> <Esc>:CtrlSFToggle<CR>
+"nnoremap <C-F>o :CtrlSFOpen<CR>
+"}}}
+
 
 "=                    MARK_KARKAT                        = {{{
 "NOTE: default mappings from plugin:
