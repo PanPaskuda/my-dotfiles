@@ -373,7 +373,8 @@ assign [class="Signal"] $ws2
 assign [class="Firefox"] $ws3
 #remote desktop viewer:
 assign [class="Vinagre"] $ws4
-assign [class="TeamViewer"] $ws9
+#assigning TeamViewer to specific window causes problem with connection when different window is focused
+#assign [class="TeamViewer"] $ws9
 assign [class="keepassxc" window_type="normal"] $ws9
 
 # Open specific applications in floating mode
@@ -404,5 +405,6 @@ exec --no-startup-id gvim ~/todo.txt
 exec --no-startup-id $terminal_path;
 exec --no-startup-id gvim ~/.config/regolith/i3/config
 exec --no-startup-id 'keepassxc'
+exec --no-startup-id 'Thunderbird'
 ################################################################################
 #
