@@ -110,6 +110,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'Raimondi/delimitMate' "provides automatic closing of quotes, parenthesis, brackets, etc.
 Plugin 'dyng/ctrlsf.vim' "An ack powered code search and view tool lets you edit file in-place
+Plugin 'hari-rangarajan/CCTree' "generate call tree graph
 "DevIcons has to be load as he very last plugin
 Plugin 'ryanoasis/vim-devicons'
 
@@ -301,18 +302,20 @@ function! CreateCscopeDatabase()
         :!dir /b /s *.c > cscope.files
         :!dir /b /s *.h >> cscope.files
         :!dir /b /s *.mk >> cscope.files
-        :cscope kill 0
+        :silent! cscope kill 0
         :!cscope -b -i cscope.files -f cscope.out
         :!del /Q cscope.files
         :cscope add cscope.out
-        :CCTreeCscopeDb cscope.out
+        "loading database into CCTree takes way to long time
+"        :CCTreeCscopeDb cscope.out
     else
         :!find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" > cscope.files
         :!cscope -b -i cscope.files -f cscope.out
         :!rm cscope.files
-        :cscope kill 0
+        :silent! cscope kill 0
         :cscope add cscope.out
-        :CCTreeCscopeDb cscope.out
+        "loading database into CCTree takes way to long time
+"        :CCTreeCscopeDb cscope.out
     endif
 endfunction
 "}}}
@@ -350,6 +353,8 @@ let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_max_diagnostics_to_display = 200
+"append an option to clang binary
+let g:ycm_clangd_args = ["-Wextra"]
 "}}}
 
 
@@ -686,7 +691,7 @@ let g:ctrlp_by_filename = 0 "set searching by filename (as opposed to full path)
 let g:ctrlp_mruf_relative = 1 "show only MRU files in the current working directory
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\..*$',
-    \ 'file': '\v\.(exe|so|dll|html|out|log|tmp)$',
+    \ 'file': '\v\.(exe|so|dll|html|out|log|tmp|tex|)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
     "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
