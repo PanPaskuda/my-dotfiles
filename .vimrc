@@ -970,6 +970,22 @@ nnoremap <silent> <Leader>yd :YcmDiag<CR>
 nnoremap <silent> <Leader>ys :YcmShowDetailedDiagnostic<CR>
 nnoremap <silent> <Leader>yn :YcmCompleter<CR>
 nnoremap <silent> <Leader>yi :YcmDebugInfo<CR>
+
+" find callers:
+noremap <Leader>yc :YcmCompleter GoTo<CR>
+" find callees:
+noremap <Leader>yd :YcmCompleter GoToDefinition<CR>
+" find definition:
+noremap <Leader>yg :YcmCompleter GoToDeclaration<CR>
+" find file:
+noremap <Leader>yf :YcmCompleter GoToInclude<CR>
+" find symbol:
+noremap <Leader>yt :YcmCompleter GetType<CR>
+" find text:
+noremap <Leader>yp :YcmCompleter GetParent<CR>
+" grep this:
+noremap <Leader>yx :YcmCompleter GetDoc<CR>
+
 "TODO maps subcommand
 "GoToImprecise
 "GoTo
