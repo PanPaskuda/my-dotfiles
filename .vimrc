@@ -604,7 +604,7 @@ match ExtraWhitespace /[\t]\|\s\+$\| \+\ze\t/
 if has("win32")
     set guifont=Consolas:h11
 else
-    set guifont=CodeNewRoman\ Nerd\ Font\ 11,\ UbuntuMono\ Nerd\ Font\ 11
+    set guifont=Ubuntu\ Mono\ 11
 endif
 
 
@@ -693,7 +693,7 @@ let g:ctrlp_by_filename = 0 "set searching by filename (as opposed to full path)
 let g:ctrlp_mruf_relative = 1 "show only MRU files in the current working directory
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\..*$',
-    \ 'file': '\v\.(exe|so|dll|html|out|log|tmp|tex|)$',
+    \ 'file': '\v\.(exe|so|dll|html|out|log|tmp|out|tex|)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
     "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
