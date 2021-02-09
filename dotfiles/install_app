@@ -8,9 +8,8 @@ echo
 echo _________________________
 echo add user repos:
 sudo add-apt-repository --yes ppa:kgilmer/speed-ricer
-sudo add-apt-repository --yes ppa:kgilmer/regolith-stable
+sudo add-apt-repository --yes ppa:regolith-linux/release
 sudo apt-get update
-
 
 echo _________________________
 echo installing all stuff:
@@ -26,14 +25,15 @@ echo curl:
 sudo apt --assume-yes install curl
 echo wine:
 sudo apt --assume-yes install wine-stable
-echo install cmake & build essental packages for debian and python:
+echo install cmake and build essental packages for debian and python:
 sudo apt --assume-yes install build-essential cmake python3-dev
-
+echo rust and cargo
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 echo _________________________
 echo installing environment and tools:
 echo regolith i3 tiling windows manager:
-sudo apt --assume-yes install regolith-desktop
+sudo apt --assume-yes install regolith-desktop-standard
 sudo apt --assume-yes install i3-gaps
 echo polybar:
 sudo apt --assume-yes install polybar
@@ -67,7 +67,7 @@ sudo apt --assume-yes install plantuml
 #Vim & CO
 
 echo _________________________
-echo vim & neovim
+echo vim and neovim
 sudo apt --assume-yes install vim
 sudo apt --assume-yes install vim-gtk3
 sudo apt --assume-yes install neovim
@@ -86,9 +86,9 @@ git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/theme
 echo Syntax highlighting plugin for zsh:
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 echo Autosuggestions plugin for zsh:
-git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-
-
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+echo diffr
+cargo install diffr
 
 
 # VIM like stuff
@@ -124,7 +124,11 @@ sudo rm -rdf ~/Bear_Source_Tmp/
 echo _________________________
 echo install CodeNewRewRoman Nerd Font
 mkdir -p ~/.local/share/fonts
-cd ~/.local/share/fonts && curl -fLo "CodeNewRoman Nerd Font Complete.otf" "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CodeNewRoman/complete/Code%20New%20Roman%20Nerd%20Font%20Complete.otf"
+cd ~/.local/share/fonts && curl -fLo "CodeNewRoman Nerd Font Complete.otf" "https://github.com/ryanoasis/nerd-fonts/tree/2.1.0/patched-fonts/CodeNewRoman/Regular/complete/Code%20New%20Roman%20Nerd%20Font%20Complete.otf"
+
+cd ~/.local/share/fonts && curl -fLo "CodeNewRoman Nerd Font Complete Mono.otf" "https://github.com/ryanoasis/nerd-fonts/blob/2.1.0/patched-fonts/CodeNewRoman/Regular/complete/Code%20New%20Roman%20Nerd%20Font%20Complete%20Mono.otf"
+
+cd ~/.local/share/fonts && curl -fLo "UbuntuMono Nerd Font Complete Mono.ttf" "https://github.com/ryanoasis/nerd-fonts/blob/2.1.0/patched-fonts/UbuntuMono/Regular/complete/Ubuntu%20Mono%20Nerd%20Font%20Complete%20Mono.ttf"
 
 echo _________________________
 echo set zsh as default shell
