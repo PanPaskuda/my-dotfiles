@@ -119,3 +119,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias dotrepo='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'
 
+
+neofetch
+
+

@@ -49,8 +49,10 @@ echo thunderbird:
 sudo apt --assume-yes install thunderbird
 echo tree:
 sudo apt --assume-yes install tree
-#documentation like stuff
+echo neofetch:
+sudo apt --assume-yes install neofetch
 
+#documentation like stuff
 echo _________________________
 echo documentation like stuff:
 echo doxygen
