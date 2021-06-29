@@ -4,6 +4,7 @@
 
 To use this configuration run:
 ```sh
+sudo apt install --assume-yes git
 alias dotrepo='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'
 git clone --bare git@github.com:PanPaskuda/my-dotfiles.git $HOME/.dotrepo
 dotrepo config --local status.showUntrackedFiles no
@@ -20,7 +21,7 @@ Alternatively for HTTP access run:
 ```sh
 alias dotrepo='/usr/bin/git --git-dir=$HOME/.dotrepo/ --work-tree=$HOME'
 git clone --bare https://github.com/PanPaskuda/my-dotfiles.git $HOME/.dotrepo
-detrepo config --local status.showUntrackedFiles no
+dotrepo config --local status.showUntrackedFiles no
 dotrepo checkout
 ```
 
