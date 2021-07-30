@@ -692,8 +692,8 @@ let g:ctrlp_regexp = 0 "Set this to 1 to set regexp search as the default: toggl
 let g:ctrlp_by_filename = 0 "set searching by filename (as opposed to full path) toggle <c-d>
 let g:ctrlp_mruf_relative = 1 "show only MRU files in the current working directory
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\..*$',
-    \ 'file': '\v\.(exe|so|dll|html|out|log|tmp|out|tex|)$',
+    \ 'dir':  '\v[\/](\.|_).*$',
+    \ 'file': '\v\.(exe|so|dll|html|out|log|tmp|out|tex|js|xls|png|gif|dot|svg|map|md5|xml||obj|o|d|lock|hex|cxm|yml|)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
     "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -734,6 +734,9 @@ let g:ctrlsf_search_mode = 'async'
 "let g:ctrlsf_regex_pattern = 1
 "let g:ctrlsf_position = 'bottom'
 "let g:ctrlsf_winsize = '30%' "use % or absolute value i.e 30% or 100
+let g:ctrlsf_extra_backend_args = {
+    \ 'ag': '--file-search-regex ".*\.(c|h|cpp|hpp|txt)$"'
+    \ }
 "}}}
 
 
