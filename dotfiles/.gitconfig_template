@@ -5,13 +5,22 @@
 [interactive]
     diffFilter = $HOME/.cargo/bin/diffr --colors refine-added:none:background:0x33,0x70,0x00:bold --colors added:none:background:0x33,0x55,0x33 --colors refine-removed:none:background:0x99,0x33,0x33:bold --colors removed:none:background:0x55,0x33,0x33
 [alias]
-    ss = status --short
-    s  = status --show-stash
-    l  = log --oneline --graph --decorate -15
-    la = log --oneline --graph --decorate --all
-    lv = log --graph --decorate --stat
-    b  = branch --all --verbose --verbose
-    f  = fetch
-    p  = push origin HEAD:refs/for/develop
-    c  = commit --amend -p
+    s  = status --short
+    l   = log --oneline --graph --decorate -15
+    la  = log --oneline --graph --decorate --all
+    lv  = log --graph --decorate --stat
+    bv  = branch --all --verbose --verbose
+    b   = branch --verbose --verbose
+    st  = stash show --cc
+    f   = fetch
+    p   = push origin HEAD:refs/for/develop
+    c   = commit
+    ca  = commit --amend
+    cap = commit --amend --patch
+    d   = diff
+    dc  = diff --cached
+    r   = rebase origin/master
+    ri  = rebase --autostash --interactive HEAD~15
+    a   = add --patch --update
+    aa  = config --get-regexp '^alias\\.'
 
