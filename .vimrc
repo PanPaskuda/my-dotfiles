@@ -30,7 +30,6 @@ runtime! debian.vim
 " + VIM_DIFF_TOGGLE
 " + SPLIT_TOGGLE
 " + TAB_SPACES_TOGGLE
-" + DRAG_VISUALS
 " + COLOR_SCHEME
 " + CTRL_P
 " + SILVER_SERCHER
@@ -50,7 +49,6 @@ runtime! debian.vim
 " + CSCOPE
 " + YOU_COMPLETE_ME
 " + MULTIPLE_CURSORS
-" + DRAG_VISUALS
 " + TABS
 
 "=============================================================
@@ -84,7 +82,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 "My Bundles:
 Plugin 'mileszs/ack.vim' "grep alternative used with silversearcher
-Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 if has("win32")
@@ -98,7 +95,6 @@ Plugin 'mbbill/undotree'
 Plugin 'altercation/vim-colors-solarized'
 "ADD: Plugin 'scrooloose/nerdcommenter'
 Plugin 'ctrlpvim/ctrlp.vim'
-"TODO old ctrlP Plugin 'vim-scripts/Command-T'
 "TODO new ctrlP to check Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'vim-scripts/The-NERD-tree'
 "Plugin 'vim-scripts/OmniCppComplete'
@@ -108,9 +104,7 @@ Plugin 'vim-scripts/Mark--Karkat'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-fugitive'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'Raimondi/delimitMate' "provides automatic closing of quotes, parenthesis, brackets, etc.
 Plugin 'dyng/ctrlsf.vim' "An ack powered code search and view tool lets you edit file in-place
-Plugin 'hari-rangarajan/CCTree' "generate call tree graph
 "DevIcons has to be load as he very last plugin
 Plugin 'ryanoasis/vim-devicons'
 
@@ -561,16 +555,8 @@ endfunction
 
 
 "=============================================================
-"=                     DRAG_VISUALS                      = {{{
+"=                           TODO                        = {{{
 "=============================================================
-runtime plugin/dragvisuals.vim
-" Remove any introduced trailing whitespace after moving...
-let g:DVB_TrimWS = 1
-
-
-
-"TODO: =>
-
 let NERDTreeQuitOnOpen = 1
 let g:NERDTreeShowHidden=1
 
@@ -756,6 +742,7 @@ let delimitMate_expand_space = 1 "This option turns on/off the expansion of <Spa
 let g:airline_powerline_fonts = 1 "
 "}}}
 
+
 "=============================================================
 "=                  SHORT_KEYS_MAPPING                       =
 "=============================================================
@@ -767,6 +754,7 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 "}}}
+
 
 "=                      F1_F12                           = {{{
 "nmap <F1> :%bd|e#<CR><CR>
@@ -791,7 +779,6 @@ noremap <silent><F12> :call CreateCscopeDatabase()<CR>
 
 
 "=                      GENERAL_MAPPING                  = {{{
-"
 "put enter and strip in previous line all spaces till the nearest non space
 nnoremap <S-K> :call StringTrailingWhiteSpace()<CR>i<CR><ESC>
 "nnoremap <C-K> :call StringTrailingWhiteSpace()<CR>DkA<CR><ESC>p
@@ -876,6 +863,7 @@ nnoremap <Leader>k <Plug>(easymotion-k)
 "}}}
 
 
+
 "=                       CTRL_SF                         = {{{
 "most hotkeys can not be 'noremap':
 "execute cword/cWORD/VSELECT search:
@@ -924,6 +912,7 @@ nnoremap <Leader>nt <Plug>MarkToggle
 nnoremap <Leader>* <Plug>MarkSearchAnyNext
 nnoremap <Leader># <Plug>MarkSearchAnyPrev
 ""}}}
+
 
 "=                       CSCOPE                          = {{{
 " find callers:
@@ -1043,20 +1032,6 @@ let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
-"}}}
-
-
-"=                     DRAG_VISUALS                      = {{{
-vnoremap  <expr>  <LEFT>   DVB_Drag('left')
-vnoremap  <expr>  <RIGHT>  DVB_Drag('right')
-vnoremap  <expr>  <DOWN>   DVB_Drag('down')
-vnoremap  <expr>  <UP>     DVB_Drag('up')
-vnoremap  <expr>  D        DVB_Duplicate()
-
-vnoremap  <expr>  <S-LEFT>   DVB_Drag('left')
-vnoremap  <expr>  <S-RIGHT>  DVB_Drag('right')
-vnoremap  <expr>  <S-DOWN>   DVB_Drag('down')
-vnoremap  <expr>  <S-UP>     DVB_Drag('up')
 "}}}
 
 
