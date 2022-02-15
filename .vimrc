@@ -589,15 +589,17 @@ let g:EasyGrepFileAssociationsInExplorer=1 "allowed to set group of
 "=                      COLOR_SCHEME                     = {{{
 "=============================================================
 set background=dark
-colorscheme solarized
-highlight ExtraWhitespace ctermfg=white ctermbg=red guifg=white guibg=red
+    colorscheme solarized
+	"WHITESPACE_TEST    
 
 highlight NERDTreeDir guibg=#002b36 guifg=#268bd2
 
 "tabs and trailing spaces (ignore ^\t ):
 "match ExtraWhitespace /[^\t^][\t]\|\s\+$\| \+\ze\t/
 "tabs and trailing spaces:
+highlight ExtraWhitespace ctermfg=white ctermbg=red guifg=white guibg=red
 match ExtraWhitespace /[\t]\|\s\+$\| \+\ze\t/
+highlight ExtraWhitespace ctermfg=white ctermbg=red guifg=white guibg=red
 
 "NOTE: weird bahaviour after settings a guifont: resize of the gvim window
 "set font for GUI VIM: 0Oo !|1lIiL g9q
