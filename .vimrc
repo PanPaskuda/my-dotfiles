@@ -811,13 +811,16 @@ nnoremap / /\v
 nnoremap ? ?\v
 "enable/disable spell checking
 nnoremap <leader>s z=
+" Ctrl S to help with search and replace in whole file
+nnoremap <C-S> y:<C-U>%s/<C-R>///gc<Left><Left><Left>
+" Ctrl S to help with search and replace in the marked region
+vnoremap <C-S> :s/<C-R>///gc<Left><Left><Left>
 
 "let <C-U> and <C-W> be able to undo
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 "open vimrc
-nnoremap <leader>vo :vsplit $MYVIMRC<CR>
-"source vimrc
+nnoremap <leader>vo :tabnew $MYVIMRC<CR> "source vimrc
 nnoremap <leader>vs :source $MYVIMRC<CR>
 "escape from the insert mode by jk
 inoremap jk <ESC>
@@ -835,6 +838,16 @@ nnoremap <leader>vh :execute "help " . shellescape(expand("<cWORD>")) <cr>
 onoremap p i(
 onoremap q i"
 onoremap s i[
+"use cim to change word inside underscores
+onoremap im :<c-u>normal! T_vt_<cr>
+" use cam to change an undescored word
+onoremap am :<c-u>normal! F_vf_<cr>
+" use cm to change (ie: word) till next underscore
+onoremap m t_
+" use cM to change (ie: word) till next underscore
+onoremap M T_
+nnoremap m f_
+nnoremap M F_
 
 "TODO: map a operator pending to go to nextof space, undersore, minus or next CapitalLetter (but
 "only when a small letter is at the coursor)
