@@ -131,6 +131,7 @@ augroup vimrcAutocmds
     autocmd CursorHold * checktime
     "treat *.cog files as "c" files
     autocmd BufRead,BufNewFile *.cog setfiletype c
+    autocmd BufRead,BufNewFile *.ino setfiletype c
     autocmd BufRead,BufNewFile *.h setfiletype c
     autocmd BufRead,BufNewFile *.h set syntax=c.doxygen
     autocmd FileType c          set syntax=c.doxygen
