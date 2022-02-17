@@ -49,6 +49,7 @@ runtime! debian.vim
 " + CSCOPE
 " + YOU_COMPLETE_ME
 " + MULTIPLE_CURSORS
+" + SMOOTH_SCROLLING
 " + TABS
 
 "=============================================================
@@ -105,6 +106,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-fugitive'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'dyng/ctrlsf.vim' "An ack powered code search and view tool lets you edit file in-place
+Plugin 'terryma/vim-smooth-scroll' "add smooth scrolling feature to vim
 "DevIcons has to be load as he very last plugin
 Plugin 'ryanoasis/vim-devicons'
 
@@ -1034,6 +1036,12 @@ let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 "}}}
 
+
+
+"=                     SMOOTH_SCROLLING                  = {{{
+noremap <c-u> :call smooth_scroll#up(&scroll, 4, 4)<CR>
+noremap <c-d> :call smooth_scroll#down(&scroll, 4, 4)<CR>
+"}}}
 
 "=                         TABS                          = {{{
 "create new tab
