@@ -45,7 +45,6 @@ runtime! debian.vim
 " + EASY_MOTION
 " + CTRL_SF
 " + DELIMIT_MATE
-" + MARK_KARKAT
 " + CSCOPE
 " + YOU_COMPLETE_ME
 " + MULTIPLE_CURSORS
@@ -83,7 +82,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 "My Bundles:
 Plugin 'mileszs/ack.vim' "grep alternative used with silversearcher
-Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 if has("win32")
     "NOTE: issue on windows?
@@ -101,7 +99,6 @@ Plugin 'vim-scripts/The-NERD-tree'
 "Plugin 'vim-scripts/OmniCppComplete'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/snipMate'
-Plugin 'vim-scripts/Mark--Karkat'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-fugitive'
 Plugin 'easymotion/vim-easymotion'
@@ -738,7 +735,6 @@ let delimitMate_expand_cr = 1 "This option turns on/off the expansion of <CR>.
 let delimitMate_expand_space = 1 "This option turns on/off the expansion of <Space>.
 "}}}
 
-
 "=============================================================
 "=                     VIM_DEVICONS                      = {{{
 "=============================================================
@@ -866,7 +862,6 @@ nnoremap <Leader>k <Plug>(easymotion-k)
 "}}}
 
 
-
 "=                       CTRL_SF                         = {{{
 "most hotkeys can not be 'noremap':
 "execute cword/cWORD/VSELECT search:
@@ -886,35 +881,6 @@ nnoremap <C-F><C-F> :CtrlSFToggle<CR>
 inoremap <C-F><C-F> <Esc>:CtrlSFToggle<CR>
 "nnoremap <C-F>o :CtrlSFOpen<CR>
 "}}}
-
-
-"=                    MARK_KARKAT                        = {{{
-"NOTE: default mappings from plugin:
-"nnoremap <Leader>m <Plug>MarkSet
-"vnoremap <Leader>m <Plug>MarkSet
-"nnoremap <Leader>r <Plug>MarkRegex
-"vnoremap <Leader>r <Plug>MarkRegex
-"nnoremap <Leader>n <Plug>MarkClear
-"nnoremap <Leader>* <Plug>MarkSearchCurrentNext
-"nnoremap <Leader># <Plug>MarkSearchCurrentPrev
-"nnoremap * <Plug>MarkSearchNext
-"nnoremap # <Plug>MarkSearchPrev
-"" No default mapping for <Plug>MarkAllClear
-"" No default mapping for <Plug>MarkToggle
-
-"NOTE: mapping is to avoid error from plugin
-nnoremap <Leader>NNNNNNCN <Plug>MarkSearchCurrentNext
-nnoremap <Leader>NNNNNNCP <Plug>MarkSearchCurrentPrev
-nnoremap <Leader>NNNNNNC <Plug>MarkClear
-nnoremap <Leader>NNNNNNN <Plug>MarkSearchNext
-nnoremap <Leader>NNNNNNP <Plug>MarkSearchPrev
-
-"NOTE: custom mapping
-nnoremap <Leader>n <Plug>MarkToggle
-nnoremap <Leader>nt <Plug>MarkToggle
-nnoremap <Leader>* <Plug>MarkSearchAnyNext
-nnoremap <Leader># <Plug>MarkSearchAnyPrev
-""}}}
 
 
 "=                       CSCOPE                          = {{{
