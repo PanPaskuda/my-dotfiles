@@ -1,7 +1,10 @@
-
 " This line should not be removed as it ensures that various options are
 " properly set to work with the Vim-related packages available in Debian.
 runtime! debian.vim
+
+"=============================================================
+"======================== VIMRC_INFO =========================
+"=============================================================
 
 " VIMRC_INFO:
 " use zM - to open all folds
@@ -9,18 +12,19 @@ runtime! debian.vim
 " use za - to toggle actual fold
 " use <leader>vs to sorce vimrc again
 
+"=============================================================
+"=================== TABLE_OF_CONTENTS  ======================
+"=============================================================
 
 " TABLE_OF_CONTENTS:
 " + VUNDLE_PLUGIN_MANAGER
 " + AUTO_CMD
 " + GENERAL_SETTINGS
-" PLUGINS_AND_FUNCTIONS:
 
+" PLUGINS_AND_FUNCTIONS:
 " + CLEAN_VIEW function
 " + CSCOPE
-" + CCTREE
 " + YOU_COMPLETE_ME
-" + MULTIPLE_CURSORS
 " + GIT_GUTTER
 " + QUICK_FIX_WINDOW
 " + ACK
@@ -36,20 +40,16 @@ runtime! debian.vim
 " + EASY_MOTION
 " + CTRL_SF
 " + VIM_DEVICONS
-
-" SHORT_KEYS_MAPPING:
-" + ARROW_KEYS
-" + F1_F12
-" + GENERAL_MAPPING
-" + OPERATOR_PENDING
-" + EASY_MOTION
-" + CTRL_SF
-" + DELIMIT_MATE
-" + CSCOPE
-" + YOU_COMPLETE_ME
-" + MULTIPLE_CURSORS
 " + SMOOTH_SCROLLING
+" + STATUS_LINE
+
+" ADDITIONAL_SHORT_KEYS_MAPPING:
+" + GENERAL_KEY_BINDING
+" + F1_F12
+" + ARROW_KEYS
+" + OPERATOR_PENDING
 " + TABS
+
 
 "=============================================================
 "    TODO
@@ -59,6 +59,8 @@ runtime! debian.vim
 "  +  description of content + real hyperlinks
 "  +  maps for copen cclose cwindow etc...
 "  +  create a function to create a full config: CD, YCM, tags
+
+
 "=============================================================
 "=              VUNDLE_PLUGIN_MANAGER                    = {{{
 "=============================================================
@@ -108,16 +110,14 @@ Plugin 'terryma/vim-smooth-scroll' "add smooth scrolling feature to vim
 Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()
-"}}}
 
 syntax on "syntax highlighting
 set background=dark
-
-
+"}}}
 
 
 "===========================================================
-"=                         AUTO_CMD                      = {{{
+"=                       AUTO_CMD                      = {{{
 "===========================================================
 augroup vimrcAutocmds
     "Remove ALL autocommands for the current group
@@ -140,15 +140,13 @@ augroup vimrcAutocmds
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 "}}}
-"
-
-filetype plugin indent on
-filetype plugin on
 
 
 "===========================================================
 "=                   GENERAL_SETTINGS                  = {{{
 "===========================================================
+filetype plugin indent on
+filetype plugin on
 set showcmd     " Show (partial) command in status line.
 set showmatch   " Show matching brackets.
 set ignorecase  " Do case insensitive matching
@@ -209,6 +207,11 @@ else
 "TODO how to swoitch off swap files    set directory=~/.vim/swap
 endif
 "}}}
+
+"===========================================================
+"=================== PLUGINS_AND_FUNCTIONS =================
+"===========================================================
+
 
 "===========================================================
 "=                   CREATE_WORKSPACE                  = {{{
@@ -314,23 +317,44 @@ function! CreateCscopeDatabase()
 "        :CCTreeCscopeDb cscope.out
     endif
 endfunction
-"}}}
 
+" find callers:
+noremap <Leader>fc :cscope f c <cword><CR>
+" find callees:
+noremap <Leader>fd :cscope f d <cword><CR>
+" find definition:
+noremap <Leader>fg :cscope f g <cword><CR>
+" find file:
+noremap <Leader>ff :cscope f f <cword><CR>
+" find files including this:
+noremap <Leader>fi :cscope f i %:t<CR>
+" find symbol:
+noremap <Leader>fs :cscope f s <cword><CR>
+" find text:
+noremap <Leader>ft :cscope f t <cword><CR>
+" grep this:
+noremap <Leader>fe :cscope f e <cword><CR>
 
-"===========================================================
-"=                         CCTREE                        = {{{
-"===========================================================
-"HELP:You can download the latest release of the script from this url :
-"   http://www.vim.org/scripts/script.php?script_id=2368
-"   Copy this file to ~/.vim/plugins/
-let g:CCTreeCscopeDb = "cscope.out"
-let g:CCTreeRecursiveDepth = 3
-let g:CCTreeMinVisibleDepth = 3
-let g:CCTreeOrientation = "leftabove"
-let g:CCTreeWindowVertical = 1
-let g:CCTreeWindowHeight = -1
-let g:CCTreeWindowMinWidth = 40
-let g:CCTreeDisplayMode = 1
+"use 'v' or 's' to open in new split or vertical window
+nnoremap <Leader>fvs :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fvg :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fvc :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fvt :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fve :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fvf :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+nnoremap <Leader>fvi :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nnoremap <Leader>fvd :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fva :vert scs find a <C-R>=expand("<cword>")<CR><CR>
+
+nnoremap <Leader>fss :scs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fsg :scs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fsc :scs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fst :scs find t <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fse :scs find e <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fsf :scs find f <C-R>=expand("<cfile>")<CR><CR>
+nnoremap <Leader>fsi :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nnoremap <Leader>fsd :scs find d <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>fsa :scs find a <C-R>=expand("<cword>")<CR><CR>
 "}}}
 
 
@@ -351,15 +375,56 @@ let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_max_diagnostics_to_display = 200
 "append an option to clang binary
 let g:ycm_clangd_args = ["-Wextra"]
-"}}}
 
+nnoremap <Leader>yy :YcmCompleter<CR>
+"jump back
+nnoremap <leader>jb <C-O>
+"jump forward
+nnoremap <leader>jf <C-I>
 
-"=============================================================
-"=                    MULTIPLE_CURSORS                   = {{{
-"=============================================================
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_exit_from_visual_mode=1
-let g:multi_cursor_exit_from_insert_mode=1
+"DefinitionElseDeclaration<CR>
+nnoremap <silent> <leader> yg :YcmCompleter GoTo <CR>
+nnoremap <silent> <Leader>i :TlistToggle<CR>
+nnoremap <silent> <Leader>j :NextError<CR>
+nnoremap <silent> <Leader>k :PrevError<CR>
+"nnoremap <silent> <Leader>h :OlderError<CR>
+"nnoremap <silent> <Leader>l :NewerError<CR>
+nnoremap <silent> <Leader>yf :YcmCompleter FixIt<CR>
+nnoremap <silent> <Leader>yr :YcmRestartServer<CR>
+nnoremap <silent> <Leader>yc :YcmForceCompileAndDiagnostics<CR>
+nnoremap <silent> <Leader>yd :YcmDiag<CR>
+nnoremap <silent> <Leader>ys :YcmShowDetailedDiagnostic<CR>
+nnoremap <silent> <Leader>yn :YcmCompleter<CR>
+nnoremap <silent> <Leader>yi :YcmDebugInfo<CR>
+
+" find callers:
+noremap <Leader>yc :YcmCompleter GoTo<CR>
+" find callees:
+noremap <Leader>yd :YcmCompleter GoToDefinition<CR>
+" find definition:
+noremap <Leader>yg :YcmCompleter GoToDeclaration<CR>
+" find file:
+noremap <Leader>yf :YcmCompleter GoToInclude<CR>
+" find symbol:
+noremap <Leader>yt :YcmCompleter GetType<CR>
+" find text:
+noremap <Leader>yp :YcmCompleter GetParent<CR>
+" grep this:
+noremap <Leader>yx :YcmCompleter GetDoc<CR>
+
+"TODO maps subcommand
+"GoToImprecise
+"GoTo
+"GoToDefinition
+"GoToDeclaration
+"GoToInclude
+"
+"TODO maps subcommand
+"GetType
+"GetTypeImprecise
+"GetParent
+"GetDoc
+"GetDocImprecise
 "}}}
 
 
@@ -709,6 +774,25 @@ noremap <C-P> :CtrlP<CR>
 "=============================================================
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1 " Turn on case insensitive feature
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding:   `s{char}{label}`
+nnoremap <space> <Plug>(easymotion-overwin-f)
+" or  `s{char}{char}{label}`   Need one more keystroke, but on average, it may be more comfortable.
+nnoremap <leader><space> <Plug>(easymotion-overwin-f2)
+
+nnoremap <Leader>w <Plug>(easymotion-w)
+nnoremap <Leader>W <Plug>(easymotion-W)
+nnoremap <Leader>b <Plug>(easymotion-b)
+nnoremap <Leader>B <Plug>(easymotion-B)
+nnoremap <Leader>e <Plug>(easymotion-e)
+nnoremap <Leader>E <Plug>(easymotion-E)
+nnoremap <Leader>ge <Plug>(easymotion-ge)
+nnoremap <Leader>gE <Plug>(easymotion-gE)
+nnoremap <Leader>j <Plug>(easymotion-j)
+nnoremap <Leader>k <Plug>(easymotion-k)
+"nnoremap <Leader>n <Plug>(easymotion-bd-n)
+"nnoremap <Leader>N <Plug>(easymotion-N)
+"nnoremap <Leader>s <Plug>(easymotion-s)
 "}}}
 
 
@@ -725,6 +809,24 @@ let g:ctrlsf_search_mode = 'async'
 let g:ctrlsf_extra_backend_args = {
     \ 'ag': '--file-search-regex ".*\.(c|h|cpp|hpp|txt)$"'
     \ }
+
+"most hotkeys can not be 'noremap':
+"execute cword/cWORD/VSELECT search:
+nmap <C-F>a <Plug>CtrlSFCwordPath <CR>
+nmap <C-F><C-A> :execute "CtrlSF " . shellescape(expand("<cWORD>")) <CR>
+vmap <C-F>a <Plug>CtrlSFVwordExec
+
+"start prompting only
+nmap <C-F> <Plug>CtrlSFPrompt
+vmap <C-F> <Plug>CtrlSFVwordPath
+
+"find a previous search pattern TODO: delete \v (verymagic sign) from search
+nmap <C-F>/ <Plug>CtrlSFPwordPath
+
+"Open/close CtrlSF window
+nnoremap <C-F><C-F> :CtrlSFToggle<CR>
+inoremap <C-F><C-F> <Esc>:CtrlSFToggle<CR>
+"nnoremap <C-F>o :CtrlSFOpen<CR>
 "}}}
 
 
@@ -743,19 +845,36 @@ let g:airline_powerline_fonts = 1 "
 
 
 "=============================================================
-"=                  SHORT_KEYS_MAPPING                       =
+"=                     SMOOTH_SCROLLING                  = {{{
 "=============================================================
-"=                    ARROW_KEYS                         = {{{
-"
-"NOTE: can by added by plugin: wikitopian/hardmode
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+noremap <c-u> :call smooth_scroll#up(&scroll, 4, 4)<CR>
+noremap <c-d> :call smooth_scroll#down(&scroll, 4, 4)<CR>
 "}}}
 
 
-"=                      F1_F12                           = {{{
+"=============================================================
+"=                     STATUS_LINE                       = {{{
+"=============================================================
+"modify the status line
+set statusline=%t\ %{FugitiveStatusline()}\ FileType:\ %y\ FileEncoding:\ %{&fenc}%=%P\ 0x%02B\ %3c
+"set statusline=%F%m%r%<\ %=%l,%v\ [%L]\ %p%%
+"hi statusline ctermbg=white ctermfg=black
+set laststatus=2
+
+"set terminal encoding to latin1 to support ALT key and macros, but it means
+"that mouse doesn't work
+"TODO//set termencoding=latin1
+"}}}
+
+
+"=============================================================
+"============ ADDITIONAL_SHORT_KEYS_MAPPING ==================
+"=============================================================
+
+
+"=============================================================
+"=                          F1_F12                       = {{{
+"=============================================================
 "nmap <F1> :%bd|e#<CR><CR>
 noremap <F1> :%bd<CR><CR>
 noremap <F2> :UndotreeToggle<CR>
@@ -777,7 +896,9 @@ noremap <silent><F12> :call CreateCscopeDatabase()<CR>
 "}}}
 
 
-"=                      GENERAL_MAPPING                  = {{{
+"=============================================================
+"=                  GENERAL_KEY_BINDING                  = {{{
+"=============================================================
 "put enter and strip in previous line all spaces till the nearest non space
 nnoremap <S-K> :call StringTrailingWhiteSpace()<CR>i<CR><ESC>
 "nnoremap <C-K> :call StringTrailingWhiteSpace()<CR>DkA<CR><ESC>p
@@ -819,7 +940,20 @@ nnoremap <leader>vh :execute "help " . shellescape(expand("<cWORD>")) <cr>
 "}}}
 
 
-"=                OPERATOR_PENDING                       = {{{
+"=============================================================
+"=                        ARROW_KEYS                     = {{{
+"=============================================================
+"NOTE: can by added by plugin: wikitopian/hardmode
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+"}}}
+
+
+"=============================================================
+"=                     OPERATOR_PENDING                  = {{{
+"=============================================================
 "TODO: LVTHW chapter 15
 onoremap p i(
 onoremap q i"
@@ -840,177 +974,9 @@ nnoremap M F_
 "}}}
 
 
-"=                     EASY_MOTION                       = {{{
-" Jump to anywhere you want with minimal keystrokes, with just one key binding:   `s{char}{label}`
-nnoremap <space> <Plug>(easymotion-overwin-f)
-" or  `s{char}{char}{label}`   Need one more keystroke, but on average, it may be more comfortable.
-nnoremap <leader><space> <Plug>(easymotion-overwin-f2)
-
-nnoremap <Leader>w <Plug>(easymotion-w)
-nnoremap <Leader>W <Plug>(easymotion-W)
-nnoremap <Leader>b <Plug>(easymotion-b)
-nnoremap <Leader>B <Plug>(easymotion-B)
-nnoremap <Leader>e <Plug>(easymotion-e)
-nnoremap <Leader>E <Plug>(easymotion-E)
-nnoremap <Leader>ge <Plug>(easymotion-ge)
-nnoremap <Leader>gE <Plug>(easymotion-gE)
-nnoremap <Leader>j <Plug>(easymotion-j)
-nnoremap <Leader>k <Plug>(easymotion-k)
-"nnoremap <Leader>n <Plug>(easymotion-bd-n)
-"nnoremap <Leader>N <Plug>(easymotion-N)
-"nnoremap <Leader>s <Plug>(easymotion-s)
-"}}}
-
-
-"=                       CTRL_SF                         = {{{
-"most hotkeys can not be 'noremap':
-"execute cword/cWORD/VSELECT search:
-nmap <C-F>a <Plug>CtrlSFCwordPath <CR>
-nmap <C-F><C-A> :execute "CtrlSF " . shellescape(expand("<cWORD>")) <CR>
-vmap <C-F>a <Plug>CtrlSFVwordExec
-
-"start prompting only
-nmap <C-F> <Plug>CtrlSFPrompt
-vmap <C-F> <Plug>CtrlSFVwordPath
-
-"find a previous search pattern TODO: delete \v (verymagic sign) from search
-nmap <C-F>/ <Plug>CtrlSFPwordPath
-
-"Open/close CtrlSF window
-nnoremap <C-F><C-F> :CtrlSFToggle<CR>
-inoremap <C-F><C-F> <Esc>:CtrlSFToggle<CR>
-"nnoremap <C-F>o :CtrlSFOpen<CR>
-"}}}
-
-
-"=                       CSCOPE                          = {{{
-" find callers:
-noremap <Leader>fc :cscope f c <cword><CR>
-" find callees:
-noremap <Leader>fd :cscope f d <cword><CR>
-" find definition:
-noremap <Leader>fg :cscope f g <cword><CR>
-" find file:
-noremap <Leader>ff :cscope f f <cword><CR>
-" find files including this:
-noremap <Leader>fi :cscope f i %:t<CR>
-" find symbol:
-noremap <Leader>fs :cscope f s <cword><CR>
-" find text:
-noremap <Leader>ft :cscope f t <cword><CR>
-" grep this:
-noremap <Leader>fe :cscope f e <cword><CR>
-
-
-"use 'v' or 's' to open in new split or vertical window
-nnoremap <Leader>fvs :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fvg :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fvc :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fvt :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fve :vert scs find e <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fvf :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
-nnoremap <Leader>fvi :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nnoremap <Leader>fvd :vert scs find d <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fva :vert scs find a <C-R>=expand("<cword>")<CR><CR>
-
-nnoremap <Leader>fss :scs find s <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fsg :scs find g <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fsc :scs find c <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fst :scs find t <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fse :scs find e <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fsf :scs find f <C-R>=expand("<cfile>")<CR><CR>
-nnoremap <Leader>fsi :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nnoremap <Leader>fsd :scs find d <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>fsa :scs find a <C-R>=expand("<cword>")<CR><CR>
-"}}}
-
-
-"=                    YOU_COMPLETE_ME                    = {{{
-nnoremap <Leader>yy :YcmCompleter<CR>
-"jump back
-nnoremap <leader>jb <C-O>
-"jump forward
-nnoremap <leader>jf <C-I>
-
-"DefinitionElseDeclaration<CR>
-nnoremap <silent> <leader> yg :YcmCompleter GoTo <CR>
-nnoremap <silent> <Leader>i :TlistToggle<CR>
-nnoremap <silent> <Leader>j :NextError<CR>
-nnoremap <silent> <Leader>k :PrevError<CR>
-"nnoremap <silent> <Leader>h :OlderError<CR>
-"nnoremap <silent> <Leader>l :NewerError<CR>
-nnoremap <silent> <Leader>yf :YcmCompleter FixIt<CR>
-nnoremap <silent> <Leader>yr :YcmRestartServer<CR>
-nnoremap <silent> <Leader>yc :YcmForceCompileAndDiagnostics<CR>
-nnoremap <silent> <Leader>yd :YcmDiag<CR>
-nnoremap <silent> <Leader>ys :YcmShowDetailedDiagnostic<CR>
-nnoremap <silent> <Leader>yn :YcmCompleter<CR>
-nnoremap <silent> <Leader>yi :YcmDebugInfo<CR>
-
-" find callers:
-noremap <Leader>yc :YcmCompleter GoTo<CR>
-" find callees:
-noremap <Leader>yd :YcmCompleter GoToDefinition<CR>
-" find definition:
-noremap <Leader>yg :YcmCompleter GoToDeclaration<CR>
-" find file:
-noremap <Leader>yf :YcmCompleter GoToInclude<CR>
-" find symbol:
-noremap <Leader>yt :YcmCompleter GetType<CR>
-" find text:
-noremap <Leader>yp :YcmCompleter GetParent<CR>
-" grep this:
-noremap <Leader>yx :YcmCompleter GetDoc<CR>
-
-"TODO maps subcommand
-"GoToImprecise
-"GoTo
-"GoToDefinition
-"GoToDeclaration
-"GoToInclude
-"
-"TODO maps subcommand
-"GetType
-"GetTypeImprecise
-"GetParent
-"GetDoc
-"GetDocImprecise
-"
-"}}}
-
-
-"=                         CCTREE                        = {{{
-"TODO cctree not works and set custom shortcuts
-let g:CCTreeKeyTraceForwardTree = '<C-\>>'
-let g:CCTreeKeyTraceReverseTree = '<C-\><'
-let g:CCTreeKeyHilightTree = '<C-l>'        " Static highlighting
-let g:CCTreeKeySaveWindow = '<C-\>y'
-let g:CCTreeKeyToggleWindow = '<C-\>w'
-let g:CCTreeKeyCompressTree = 'zs'     " Compress call-tree
-let g:CCTreeKeyDepthPlus = '<C-\>='
-let g:CCTreeKeyDepthMinus = '<C-\>-'
-"}}}
-
-
-"=                    MULTIPLE_CURSORS                   = {{{
-let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
-"}}}
-
-
-
-"=                     SMOOTH_SCROLLING                  = {{{
-noremap <c-u> :call smooth_scroll#up(&scroll, 4, 4)<CR>
-noremap <c-d> :call smooth_scroll#down(&scroll, 4, 4)<CR>
-"}}}
-
+"=============================================================
 "=                         TABS                          = {{{
+"=============================================================
 "create new tab
 nnoremap <leader>tn :tabnew<CR>
 "close tab
@@ -1028,7 +994,9 @@ nnoremap <leader>tl :tabNext<CR>
 "}}}
 
 
-"=               TO MOVE OR  DELETE                      = {{{
+"=============================================================
+"=                  TODO TO MOVE OR DELETE               = {{{
+"=============================================================
 "shift lines using alt+jk (in all modes)
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
@@ -1074,17 +1042,7 @@ nnoremap <A-h> ^
 nnoremap <A-l> $
 vnoremap <A-h> ^
 vnoremap <A-l> $
-
-
-"modify the status line
-set statusline=%t\ %{FugitiveStatusline()}\ FileType:\ %y\ FileEncoding:\ %{&fenc}%=%P\ 0x%02B\ %3c
-"set statusline=%F%m%r%<\ %=%l,%v\ [%L]\ %p%%
-"hi statusline ctermbg=white ctermfg=black
-set laststatus=2
-
-"set terminal encoding to latin1 to support ALT key and macros, but it means
-"that mouse doesn't work
-"TODO//set termencoding=latin1
-
 "}}}
+
+
 
