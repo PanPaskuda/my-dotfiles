@@ -3,12 +3,10 @@
 #find real script directory
 #DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+
 echo clear
 echo
 echo _________________________
-echo add user repos:
-sudo add-apt-repository --yes ppa:kgilmer/speed-ricer
-sudo add-apt-repository --yes ppa:kgilmer/regolith-stable
 sudo apt-get update
 
 
@@ -26,23 +24,20 @@ echo curl:
 sudo apt --assume-yes install curl
 echo wine:
 sudo apt --assume-yes install wine-stable
-echo install cmake & build essental packages for debian and python:
+echo install cmake and build essental packages for debian and python:
 sudo apt --assume-yes install build-essential cmake python3-dev
+echo sdk:
+curl -s https://get.sdkman.io | bash
+echo kotlin:
+sdk install kotlin
 
 
 echo _________________________
 echo installing environment and tools:
-echo regolith i3 tiling windows manager:
-sudo apt --assume-yes install regolith-desktop
-sudo apt --assume-yes install i3-gaps
-echo polybar:
-sudo apt --assume-yes install polybar
 echo tldr:
 sudo apt --assume-yes install tldr
 echo htop:
 sudo apt --assume-yes install htop
-echo ranger:
-sudo apt --assume-yes install ranger
 echo zsh:
 sudo apt --assume-yes install zsh
 echo tmux:
@@ -53,6 +48,7 @@ echo tree:
 sudo apt --assume-yes install tree
 echo neofetch:
 sudo apt --assume-yes install neofetch
+
 
 #documentation like stuff
 echo _________________________
@@ -68,8 +64,8 @@ sudo apt --assume-yes install graphviz
 echo plantUML
 sudo apt --assume-yes install plantuml
 
-#Vim & CO
 
+#Vim & CO
 echo _________________________
 echo vim & neovim
 sudo apt --assume-yes install vim
@@ -93,8 +89,6 @@ echo Autosuggestions plugin for zsh:
 git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
 
-
-
 # VIM like stuff
 echo _________________________
 echo install vim plugins
@@ -107,11 +101,13 @@ echo open vim, update all plugins and quit vim:
 sleep 1
 vim -c BundleUpdate -c q -c q
 
+
 #install You Complete Me the Vim plugin
 echo _________________________
 echo install clang-completer for YCM
 cd ~/.vim/bundle/YouCompleteMe
 python3 install.py --clang-completer
+
 
 echo _________________________
 echo compile and install Bear for YCM and vim
@@ -129,6 +125,7 @@ echo _________________________
 echo install CodeNewRewRoman Nerd Font
 mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts && curl -fLo "CodeNewRoman Nerd Font Complete.otf" "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CodeNewRoman/complete/Code%20New%20Roman%20Nerd%20Font%20Complete.otf"
+
 
 echo _________________________
 echo set zsh as default shell

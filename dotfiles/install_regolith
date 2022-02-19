@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#find real script directory
+#DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+echo clear
+echo _________________________
+echo install regolith
+echo _________________________
+echo add user repos:
+sudo add-apt-repository --yes ppa:kgilmer/speed-ricer
+sudo add-apt-repository --yes ppa:kgilmer/regolith-stable
+sudo apt-get update
+
+
+echo regolith i3 tiling windows manager:
+sudo apt --assume-yes install regolith-desktop
+sudo apt --assume-yes install i3-gaps
+echo polybar:
+sudo apt --assume-yes install polybar
+echo ranger:
+sudo apt --assume-yes install ranger
+
+
